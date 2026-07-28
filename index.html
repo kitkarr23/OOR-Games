@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OOR Puzzle League</title>
+<style>
+  :root {
+    /* RCA brand palette (theme1.xml source of truth) */
+    --navy: #1B365D;
+    --red: #A72B2A;
+    --charcoal: #535659;
+    --white: #FFFFFF;
+    --burnt-orange: #C34D28;
+    --teal: #006565;
+    --amber: #FAA74B;
+    --mid-gray: #A7A8A9;
+    --warm-gray: #D9D9D6;
+    --strong: #2D7D46;
+
+    /* Semantic tokens */
+    --bg: #FFFFFF;
+    --surface: #FFFFFF;
+    --surface-2: #F5F5F3;
+    --border: #D9D9D6;
+    --border-strong: #A7A8A9;
+    --text: #535659;
+    --text-dim: #A7A8A9;
+    --text-strong: #1B365D;
+    --accent: #A72B2A;
+    --accent-hover: #8B1F1E;
+    --shadow: 0 2px 10px rgba(27, 54, 93, 0.08);
+    --radius: 8px;
+
+    /* Game-specific brand-safe colors */
+    --wordle-hit: #2D7D46;
+    --wordle-warm: #FAA74B;
+    --wordle-miss: #A7A8A9;
+    --group-a: #C34D28; /* Burnt Orange */
+    --group-b: #006565; /* Teal */
+    --group-c: #FAA74B; /* Amber */
+    --group-d: #1B365D; /* Navy */
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Aptos", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  .display-font {
+    font-family: "Aptos Display", "Aptos", "Segoe UI", -apple-system, sans-serif;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 16px 80px; }
+
+  /* Brand wordmark bar */
+  .brand-bar {
+    background: var(--navy);
+    color: var(--white);
+    padding: 12px 16px;
+    text-align: center;
+    margin: 0 -16px 24px;
+    letter-spacing: 2px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .brand-bar .oor { color: var(--white); font-size: 13px; font-weight: 700; letter-spacing: 3px; }
+  .brand-bar .divider { color: var(--mid-gray); margin: 0 10px; }
+
+  header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-top: 12px;
+  }
+  header h1 {
+    margin: 0 0 6px;
+    font-size: 32px;
+    letter-spacing: -0.5px;
+    color: var(--text-strong);
+    font-family: "Aptos Display", "Aptos", sans-serif;
+    font-weight: 700;
+  }
+  header .sub {
+    color: var(--charcoal);
+    font-size: 14px;
+  }
+  header .rule {
+    width: 60px;
+    height: 3px;
+    background: var(--red);
+    margin: 10px auto 0;
+    border-radius: 2px;
+  }
+  .drop-banner {
+    background: var(--red);
+    color: var(--white);
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 24px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .game-tiles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  @media (min-width: 560px) {
+    .game-tiles { grid-template-columns: repeat(3, 1fr); }
+  }
+  .tile {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--navy);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+    position: relative;
+    box-shadow: var(--shadow);
+  }
+  .tile:hover {
+    transform: translateY(-2px);
+    border-top-color: var(--red);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.15);
+  }
+  .tile .emoji { font-size: 30px; display: block; margin-bottom: 6px; }
+  .tile .name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-strong);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .tile .status { font-size: 11px; color: var(--mid-gray); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tile.done { border-top-color: var(--strong); }
+  .tile.done .status { color: var(--strong); font-weight: 600; }
+  .tile.done::after {
+    content: "✓";
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: var(--strong);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+  }
+  .panel h2 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    font-family: "Aptos Display", "Aptos", sans-serif;
+  }
+  .panel h2::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--red);
+    margin-top: 6px;
+    margin-bottom: 12px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .stat {
+    background: var(--surface-2);
+    border-radius: 6px;
+    padding: 12px 6px;
+    text-align: center;
+    border-top: 2px solid var(--navy);
+  }
+  .stat .num {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    font-family: "Aptos Display", "Aptos", sans-serif;
+    line-height: 1;
+  }
+  .stat .lbl {
+    font-size: 10px;
+    color: var(--charcoal);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 4px;
+    font-weight: 600;
+  }
+  button {
+    background: var(--red);
+    color: var(--white);
+    border: 0;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  button:hover { background: var(--accent-hover); }
+  button.ghost {
+    background: transparent;
+    border: 1px solid var(--border-strong);
+    color: var(--charcoal);
+  }
+  button.ghost:hover { border-color: var(--red); color: var(--red); background: transparent; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  input[type="text"] {
+    background: var(--white);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    width: 100%;
+  }
+  input[type="text"]:focus { outline: 2px solid var(--red); outline-offset: -1px; }
+
+  /* Modal / game view */
+  .view {
+    display: none;
+  }
+  .view.active { display: block; }
+  .view h2 {
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-family: "Aptos Display", "Aptos", sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .back-btn {
+    background: transparent;
+    color: var(--charcoal);
+    padding: 4px 0;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  .back-btn:hover { color: var(--red); background: transparent; }
+
+  /* Wordle */
+  .wordle-board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 6px;
+    max-width: 320px;
+    margin: 20px auto;
+  }
+  .wordle-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .wordle-cell {
+    aspect-ratio: 1;
+    background: var(--white);
+    border: 2px solid var(--border-strong);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-strong);
+    transition: background 0.4s, border-color 0.4s;
+    font-family: "Aptos Display", "Aptos", sans-serif;
+  }
+  .wordle-cell.filled { border-color: var(--navy); }
+  .wordle-cell.hit { background: var(--wordle-hit); border-color: var(--wordle-hit); color: var(--white); }
+  .wordle-cell.warm { background: var(--wordle-warm); border-color: var(--wordle-warm); color: var(--text-strong); }
+  .wordle-cell.miss { background: var(--wordle-miss); border-color: var(--wordle-miss); color: var(--white); }
+  .keyboard {
+    display: grid;
+    gap: 4px;
+    max-width: 500px;
+    margin: 20px auto 0;
+  }
+  .kb-row { display: flex; justify-content: center; gap: 4px; }
+  .kb-key {
+    background: var(--surface-2);
+    color: var(--text-strong);
+    border: 1px solid var(--border);
+    padding: 12px 6px;
+    min-width: 30px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    flex: 1;
+    max-width: 42px;
+    font-family: inherit;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .kb-key.wide { max-width: 70px; font-size: 11px; }
+  .kb-key.hit { background: var(--wordle-hit); color: var(--white); border-color: var(--wordle-hit); }
+  .kb-key.warm { background: var(--wordle-warm); color: var(--text-strong); border-color: var(--wordle-warm); }
+  .kb-key.miss { background: var(--wordle-miss); color: var(--white); border-color: var(--wordle-miss); }
+  .kb-key:active { transform: scale(0.95); }
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--navy);
+    color: var(--white);
+    border: 0;
+    padding: 10px 20px;
+    border-radius: 4px;
+    z-index: 100;
+    animation: fadeInOut 2.5s ease;
+    opacity: 0;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+  }
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -10px); }
+    15%, 85% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -10px); }
+  }
+  .hint-box {
+    background: var(--surface-2);
+    border-left: 3px solid var(--red);
+    padding: 10px 14px;
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+    color: var(--charcoal);
+    margin: 12px 0;
+    text-align: left;
+  }
+
+  /* Connections */
+  .conn-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin: 20px 0;
+  }
+  .conn-tile {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 4px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-strong);
+    cursor: pointer;
+    user-select: none;
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: transform 0.1s, background 0.2s, border-color 0.2s;
+    word-break: break-word;
+  }
+  .conn-tile:hover { background: var(--warm-gray); }
+  .conn-tile.selected { background: var(--navy); color: var(--white); transform: scale(0.96); border-color: var(--navy); }
+  .conn-solved {
+    grid-column: 1 / -1;
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .conn-solved .group-name {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+  .conn-solved .group-items { font-size: 11px; opacity: 0.9; font-weight: 500; }
+  .conn-solved.a { background: var(--group-a); }
+  .conn-solved.b { background: var(--group-b); }
+  .conn-solved.c { background: var(--group-c); color: var(--text-strong); }
+  .conn-solved.d { background: var(--group-d); }
+  .conn-actions { display: flex; gap: 8px; justify-content: center; margin: 16px 0; }
+  .conn-mistakes { display: flex; justify-content: center; gap: 6px; margin: 10px 0; align-items: center; }
+  .conn-mistakes .lbl { font-size: 10px; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
+  .conn-mistakes .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--warm-gray);
+    transition: background 0.2s;
+  }
+  .conn-mistakes .dot.lost { background: var(--red); }
+
+  /* Trivia */
+  .trivia-q {
+    background: var(--surface-2);
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--navy);
+  }
+  .trivia-q .q-num {
+    color: var(--red);
+    font-size: 10px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+  .trivia-q .q-text {
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-strong);
+    font-size: 15px;
+  }
+  .trivia-opt {
+    display: block;
+    background: var(--white);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    font-family: inherit;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+  }
+  .trivia-opt:hover { border-color: var(--red); }
+  .trivia-opt.correct { background: var(--strong); border-color: var(--strong); color: var(--white); font-weight: 600; }
+  .trivia-opt.wrong { background: var(--red); border-color: var(--red); color: var(--white); font-weight: 600; }
+  .trivia-opt.disabled { cursor: not-allowed; opacity: 0.85; }
+
+  /* Result modal */
+  .result-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(27, 54, 93, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 20px;
+  }
+  .result-modal.open { display: flex; }
+  .result-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    border-top: 4px solid var(--red);
+    max-width: 420px;
+    width: 100%;
+    padding: 28px 24px 24px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+  .result-card h3 {
+    margin: 0 0 6px;
+    font-size: 24px;
+    color: var(--text-strong);
+    font-family: "Aptos Display", "Aptos", sans-serif;
+    font-weight: 700;
+  }
+  .result-card .sub { color: var(--charcoal); font-size: 14px; margin-bottom: 16px; }
+  .result-grid {
+    background: var(--surface-2);
+    padding: 14px;
+    border-radius: 4px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 20px;
+    margin: 12px 0;
+    white-space: pre;
+    line-height: 1.2;
+    color: var(--text-strong);
+  }
+  .result-actions { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+
+  /* Leaderboard */
+  .lb-row {
+    display: grid;
+    grid-template-columns: 24px 1fr auto auto;
+    gap: 10px;
+    padding: 10px 6px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    font-size: 14px;
+  }
+  .lb-row:last-child { border-bottom: 0; }
+  .lb-row .rank { color: var(--navy); font-weight: 700; text-align: center; font-family: "Aptos Display", "Aptos", sans-serif; }
+  .lb-row .name { font-weight: 600; color: var(--text-strong); }
+  .lb-row .games { color: var(--mid-gray); font-size: 12px; }
+  .lb-row .pts { color: var(--red); font-weight: 700; font-family: "Aptos Display", "Aptos", sans-serif; font-size: 16px; }
+  .lb-row.you { background: rgba(167, 43, 42, 0.06); border-left: 3px solid var(--red); padding-left: 8px; }
+  .lb-empty { text-align: center; color: var(--mid-gray); font-size: 13px; padding: 20px 0; font-style: italic; }
+
+  /* Setup card */
+  .setup-card { text-align: center; }
+  .setup-card h2 { justify-content: center; }
+  .setup-card h2::after { margin-left: auto; margin-right: auto; }
+  .setup-card .field { max-width: 300px; margin: 0 auto 12px; }
+
+  /* Utility */
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .row.center { justify-content: center; }
+  .row.between { justify-content: space-between; }
+  .muted { color: var(--charcoal); font-size: 13px; }
+  .center { text-align: center; }
+  .divider { height: 1px; background: var(--border); margin: 16px 0; }
+  .badge {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .footer-note {
+    text-align: center;
+    color: var(--charcoal);
+    font-size: 12px;
+    margin-top: 24px;
+    line-height: 1.6;
+  }
+  .footer-note a { color: var(--red); }
+
+  /* Brand footer */
+  .brand-footer {
+    margin: 32px -16px 0;
+    padding: 12px 16px;
+    border-top: 2px solid var(--red);
+    color: var(--mid-gray);
+    font-size: 10px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    background: var(--white);
+  }
+  .brand-footer .wordmark {
+    color: var(--navy);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="brand-bar">
+    <span class="oor">OPERATION ONEROOF</span>
+    <span class="divider">|</span>
+    <span>ROOFING CORP OF AMERICA</span>
+  </div>
+
+  <header>
+    <h1>OOR Puzzle League</h1>
+    <div class="sub">A new puzzle drop every Tuesday. Same team, same roof.</div>
+    <div class="rule"></div>
+  </header>
+
+  <div class="drop-banner" id="dropBanner">Loading today's drop...</div>
+
+  <!-- HOME VIEW -->
+  <div id="viewHome" class="view active">
+
+    <div id="setupSection" class="panel setup-card" style="display:none">
+      <h2>👋 Welcome</h2>
+      <p class="muted">Enter your name so your streak sticks with you.</p>
+      <div class="field">
+        <input type="text" id="nameInput" placeholder="Your name (e.g., Dawn D.)" maxlength="30" />
+      </div>
+      <button onclick="savePlayerName()">Start playing</button>
+    </div>
+
+    <div id="mainSection" style="display:none">
+      <div class="panel">
+        <div class="row between">
+          <div>
+            <div class="muted" style="font-size:12px">PLAYING AS</div>
+            <div style="font-weight:600; font-size:16px" id="playerLabel">—</div>
+          </div>
+          <button class="ghost" onclick="changeName()">Change</button>
+        </div>
+      </div>
+
+      <div class="game-tiles">
+        <div class="tile" id="tileWordle" onclick="openGame('wordle')">
+          <span class="emoji">🟩</span>
+          <div class="name">Wordle</div>
+          <div class="status" id="statusWordle">Ready to play</div>
+        </div>
+        <div class="tile" id="tileConnections" onclick="openGame('connections')">
+          <span class="emoji">🧩</span>
+          <div class="name">Connections</div>
+          <div class="status" id="statusConnections">Ready to play</div>
+        </div>
+        <div class="tile" id="tileTrivia" onclick="openGame('trivia')">
+          <span class="emoji">🎯</span>
+          <div class="name">OOR Trivia</div>
+          <div class="status" id="statusTrivia">Ready to play</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>📊 Your stats</h2>
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="num" id="statPlayed">0</div>
+            <div class="lbl">Played</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statWins">0</div>
+            <div class="lbl">Wins</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statStreak">0</div>
+            <div class="lbl">Streak</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statPts">0</div>
+            <div class="lbl">Points</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Team leaderboard</h2>
+        <div class="muted" style="font-size:11px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px; color:var(--mid-gray)">
+          <span id="lbLabel">Loading…</span>
+        </div>
+        <div id="leaderboard"></div>
+      </div>
+
+      <div class="panel">
+        <h2>How this works</h2>
+        <div class="muted" style="font-size:13px">
+          A new drop lands every <b style="color:var(--text-strong)">Tuesday</b>. Play all three, watch the leaderboard, keep your streak climbing. Everything is OOR-themed and some clues reward paying attention in project comms.
+        </div>
+      </div>
+
+      <div class="panel" id="announcerPanel">
+        <h2>Send weekly reminder</h2>
+        <div class="muted" style="font-size:13px; margin-bottom:12px">
+          Post this in the OOR Teams channel every Tuesday morning to remind the team a new drop is live. The message updates automatically with the current drop number.
+        </div>
+        <div style="background:var(--surface-2); padding:12px 14px; border-radius:6px; border-left:3px solid var(--red); font-size:13px; color:var(--text-strong); white-space:pre-wrap; line-height:1.5; font-family:'Consolas','Courier New',monospace" id="announcerText"></div>
+        <div class="row" style="margin-top:12px; gap:8px">
+          <button onclick="copyAnnouncement()">Copy announcement</button>
+          <button class="ghost" onclick="editAppUrl()">Set app URL</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WORDLE VIEW -->
+  <div id="viewWordle" class="view">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2 style="margin:0 0 4px">Wordle <span class="badge" id="wordleTag">Drop #1</span></h2>
+    <div class="muted">Guess the OOR-themed 5-letter word. 6 tries.</div>
+    <div class="hint-box" id="wordleHint">Hint: loading…</div>
+    <div class="wordle-board" id="wordleBoard"></div>
+    <div class="keyboard" id="wordleKeyboard"></div>
+  </div>
+
+  <!-- CONNECTIONS VIEW -->
+  <div id="viewConnections" class="view">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2 style="margin:0 0 4px">Connections <span class="badge" id="connTag">Drop #1</span></h2>
+    <div class="muted">Group 16 items into 4 OOR-themed sets of 4. You get 4 mistakes.</div>
+    <div class="conn-mistakes" id="connMistakes"></div>
+    <div class="conn-grid" id="connGrid"></div>
+    <div class="conn-actions">
+      <button class="ghost" onclick="connShuffle()">Shuffle</button>
+      <button class="ghost" onclick="connDeselect()">Deselect</button>
+      <button id="connSubmit" onclick="connSubmit()">Submit</button>
+    </div>
+  </div>
+
+  <!-- TRIVIA VIEW -->
+  <div id="viewTrivia" class="view">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2 style="margin:0 0 4px">OOR Trivia <span class="badge" id="trivTag">Drop #1</span></h2>
+    <div class="muted">5 quick questions. Answer them all to complete.</div>
+    <div id="trivContainer"></div>
+    <div class="row center" style="margin-top:16px">
+      <button id="trivFinish" onclick="trivFinish()" disabled>See results</button>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    New drop every Tuesday. Personal stats save on your device.<br/>
+    When the shared leaderboard is on, your score posts automatically after each puzzle.
+  </div>
+
+  <div class="brand-footer">
+    <span class="wordmark">Roofing Corp of America</span> · Copyright © <span id="footerYear">2026</span> · All Rights Reserved
+  </div>
+
+</div>
+
+<!-- Result modal -->
+<div class="result-modal" id="resultModal">
+  <div class="result-card">
+    <h3 id="resultTitle">Nice work!</h3>
+    <div class="sub" id="resultSub">You finished today's puzzle.</div>
+    <div class="result-grid" id="resultGrid"></div>
+    <div id="resultAnswer" class="muted"></div>
+    <div class="result-actions">
+      <button onclick="copyResult()">📋 Copy for Teams</button>
+      <button class="ghost" onclick="closeResult()">Done</button>
+    </div>
+  </div>
+</div>
+
+<div id="toastHost"></div>
+
+<script>
+/* =========================================================================
+   OOR PUZZLE LEAGUE - single file game runner
+   ------------------------------------------------------------------------
+   All puzzle content is stored below. Add new puzzles to the arrays
+   to extend the rotation. Puzzles auto-cycle based on date.
+   ========================================================================= */
+
+/* ---------- SHARED LEADERBOARD CONFIG ---------- */
+/*
+   To turn the leaderboard into a live team-wide leaderboard, do this ONE TIME:
+
+   1. Sign up at https://jsonbin.io/create-account
+   2. From the dashboard sidebar, click "API KEYS" and copy your MASTER KEY
+      (long string starting with $2a$10$...)
+   3. Click "BINS" in the sidebar, then "+ CREATE"
+   4. In the JSON editor, replace the default content with just:  {}
+   5. Keep "Private" ON. Click CREATE.
+   6. Copy the BIN ID from the URL after /bins/  (24-character string)
+   7. Paste both values below.
+
+   Leaving these empty keeps the leaderboard local per-device.
+*/
+const LEADERBOARD_CONFIG = {
+  binId: "",     // <-- Paste JSONBin BIN ID here (24 chars)
+  apiKey: ""     // <-- Paste JSONBin MASTER KEY here (starts with $2a$10$)
+};
+const LEADERBOARD_ENABLED = () => !!(LEADERBOARD_CONFIG.binId && LEADERBOARD_CONFIG.apiKey);
+
+/* ---------- PUZZLE BANKS ---------- */
+
+const WORDLE_PUZZLES = [
+  { word: "MITER", hint: "The field time capture system replacing paper timesheets." },
+  { word: "CLOUD", hint: "Oracle ___ HCM. Where HR, payroll, and time now live." },
+  { word: "WAVES", hint: "Deployment cohorts. Pilot, 1, 2, 3." },
+  { word: "PILOT", hint: "The proving ground. WeatherShield, FSO, Rooftech." },
+  { word: "FIELD", hint: "Roughly 1,400 workers do this kind of work at RCA." },
+  { word: "CREWS", hint: "Groups of field workers on job sites." },
+  { word: "STORM", hint: "Roofing is ___-driven. Priorities can shift overnight." },
+  { word: "TRAIN", hint: "One of the biggest OCM deliverables. All roles get it." },
+  { word: "ADOPT", hint: "The word after 'awareness' and 'desire' in this context." },
+  { word: "READY", hint: "Business ___. What this whole team measures." },
+  { word: "CLOSE", hint: "First 5-7 days of every month. Avoid scheduling." },
+  { word: "TRUSS", hint: "A triangular roof frame." },
+  { word: "STAGE", hint: "Each wave is a ___ of the OOR journey." },
+  { word: "SCALE", hint: "Build once for the Pilot, ___ many for future waves." },
+  { word: "BUILD", hint: "'___ once, deploy many' — the BR team's operating principle." },
+  { word: "PHASE", hint: "Design, Build, Test, Deploy — each one is a ___." },
+  { word: "SCOPE", hint: "OOR's original ___ was Finance; it grew to HR/Payroll/Time." },
+  { word: "ROLES", hint: "OCM ___ and Responsibilities matrix." },
+  { word: "OWNER", hint: "Every process needs one." },
+  { word: "SHIFT", hint: "Payroll term. A block of hours worked." },
+  { word: "HOURS", hint: "What field crews record in Miter." },
+  { word: "ENTRY", hint: "Journal ___. A basic finance term." },
+  { word: "METAL", hint: "One common commercial roofing material." },
+  { word: "SLATE", hint: "A premium roofing material." },
+  { word: "AUDIT", hint: "A quality check on process, data, or numbers." },
+  { word: "HABIT", hint: "The word 'behavior change' really means changing this." },
+  { word: "PULSE", hint: "A regular readiness ___ check across BUs." },
+  { word: "SIGNS", hint: "___ of readiness: usage up, errors down, tickets flat." },
+  { word: "COACH", hint: "What a leader does when helping their team through change." },
+  { word: "LEARN", hint: "Everyone on the OOR team is doing a lot of this." }
+];
+
+const CONNECTIONS_PUZZLES = [
+  {
+    title: "OOR Basics",
+    groups: [
+      { name: "OOR Business Units", color: "a", items: ["WEATHERSHIELD", "CROWTHER", "ROOFTECH", "HAMILTON"] },
+      { name: "Core Systems", color: "b", items: ["ORACLE HCM", "NETSUITE", "MITER", "APPFICIENCY"] },
+      { name: "ADKAR Steps", color: "c", items: ["AWARE", "DESIRE", "KNOW", "ABLE"] },
+      { name: "Roof Parts", color: "d", items: ["SHINGLE", "GUTTER", "FLASHING", "RIDGE"] }
+    ]
+  },
+  {
+    title: "People & Waves",
+    groups: [
+      { name: "Deployment Waves", color: "a", items: ["PILOT", "WAVE 1", "WAVE 2", "WAVE 3"] },
+      { name: "RCA Tower Leads", color: "b", items: ["RANDALL", "STEPHEN", "JOSH", "ALEX"] },
+      { name: "Change Roles", color: "c", items: ["SPONSOR", "LEAD", "SME", "USER"] },
+      { name: "Storm Weather", color: "d", items: ["HAIL", "WIND", "RAIN", "SNOW"] }
+    ]
+  },
+  {
+    title: "Acronyms & Tools",
+    groups: [
+      { name: "OOR Acronyms", color: "a", items: ["HCM", "MJC", "FTC", "OCM"] },
+      { name: "SI & Software Partners", color: "b", items: ["IBM", "RSM", "ORACLE", "APPFICIENCY"] },
+      { name: "OCM Deliverables", color: "c", items: ["TRAINING", "COMMS", "READINESS", "IMPACT"] },
+      { name: "Roofing Trades", color: "d", items: ["FOREMAN", "CREW", "SUPER", "ESTIMATOR"] }
+    ]
+  },
+  {
+    title: "Wave 2 & 3",
+    groups: [
+      { name: "Wave 2 BUs", color: "a", items: ["BDI", "DAV CO", "BONE DRY", "PITTMAN"] },
+      { name: "Wave 3 BUs", color: "b", items: ["A1", "AAA", "DYNAMIC", "FRONT RANGE"] },
+      { name: "HR Workstream", color: "c", items: ["HIRE", "PAY", "TIME", "LEAVE"] },
+      { name: "Finance Workstream", color: "d", items: ["AP", "AR", "GL", "MJC"] }
+    ]
+  },
+  {
+    title: "Systems in Action",
+    groups: [
+      { name: "Oracle HCM Modules", color: "a", items: ["CORE HR", "PAYROLL", "TIME", "BENEFITS"] },
+      { name: "Types of Training", color: "b", items: ["VIDEO", "INSTRUCTOR", "JOB AID", "PRACTICE"] },
+      { name: "Audiences", color: "c", items: ["EXEC", "MANAGER", "END USER", "FIELD"] },
+      { name: "Roof Types", color: "d", items: ["METAL", "TILE", "ASPHALT", "SLATE"] }
+    ]
+  },
+  {
+    title: "Change Vocabulary",
+    groups: [
+      { name: "Readiness Signals", color: "a", items: ["USAGE", "ERRORS", "TICKETS", "ADOPTION"] },
+      { name: "Types of Comms", color: "b", items: ["EMAIL", "TOWN HALL", "POSTER", "HUDDLE"] },
+      { name: "Blockers", color: "c", items: ["STORM", "CLOSE", "PAYROLL RUN", "HOLIDAY"] },
+      { name: "Wins", color: "d", items: ["GO LIVE", "SIGN OFF", "TRAIN COMPLETE", "PILOT PASS"] }
+    ]
+  },
+  {
+    title: "Pilot Focus",
+    groups: [
+      { name: "Pilot BUs", color: "a", items: ["WEATHERSHIELD", "FSO", "ROOFTECH", "PILOT"] },
+      { name: "Pilot Go-Lives", color: "b", items: ["SEP 1", "SEP 14", "OCT 1", "NOV 1"] },
+      { name: "Field Roles", color: "c", items: ["FOREMAN", "CREW LEAD", "SUPER", "PM"] },
+      { name: "Time Capture Terms", color: "d", items: ["CLOCK IN", "JOB CODE", "APPROVE", "SUBMIT"] }
+    ]
+  },
+  {
+    title: "The Money Path",
+    groups: [
+      { name: "AP Terms", color: "a", items: ["INVOICE", "VENDOR", "PAY RUN", "PO"] },
+      { name: "AR Terms", color: "b", items: ["CUSTOMER", "BILLING", "RECEIVABLE", "COLLECTION"] },
+      { name: "General Ledger", color: "c", items: ["DEBIT", "CREDIT", "JOURNAL", "BALANCE"] },
+      { name: "Job Costing", color: "d", items: ["JOB CODE", "PHASE CODE", "COST TYPE", "MATERIAL"] }
+    ]
+  },
+  {
+    title: "Deliverables",
+    groups: [
+      { name: "OCM Deliverables", color: "a", items: ["PLAYBOOK", "CHARTER", "RACI", "PLAN"] },
+      { name: "Comms Channels", color: "b", items: ["EMAIL", "POSTER", "TOWN HALL", "HUDDLE"] },
+      { name: "Training Assets", color: "c", items: ["VIDEO", "JOB AID", "PRACTICE", "QUIZ"] },
+      { name: "Readiness Signals", color: "d", items: ["DASHBOARD", "PULSE", "SURVEY", "SCORECARD"] }
+    ]
+  },
+  {
+    title: "Meeting Types",
+    groups: [
+      { name: "Program Governance", color: "a", items: ["STEERCO", "PMO", "TOWER SYNC", "STAND UP"] },
+      { name: "BU-Level Meetings", color: "b", items: ["ALL HANDS", "BU HUDDLE", "TEAM SYNC", "ONE ON ONE"] },
+      { name: "Training Sessions", color: "c", items: ["KICKOFF", "ILT", "DEMO", "PRACTICE LAB"] },
+      { name: "Decision Points", color: "d", items: ["GO NO GO", "RETRO", "SIGN OFF", "GATE REVIEW"] }
+    ]
+  },
+  {
+    title: "Roofing 101",
+    groups: [
+      { name: "Roof Materials", color: "a", items: ["SHINGLE", "TILE", "METAL", "SLATE"] },
+      { name: "Roof Structure", color: "b", items: ["DECK", "TRUSS", "RAFTER", "BEAM"] },
+      { name: "Field Tools", color: "c", items: ["HAMMER", "NAIL GUN", "LADDER", "SAW"] },
+      { name: "Weather Threats", color: "d", items: ["HAIL", "WIND", "ICE", "HEAT"] }
+    ]
+  },
+  {
+    title: "OOR Vocabulary",
+    groups: [
+      { name: "Change Roles", color: "a", items: ["EXEC", "LEAD", "SME", "USER"] },
+      { name: "Change States", color: "b", items: ["CURRENT", "TRANSITION", "FUTURE", "ADOPTED"] },
+      { name: "System Elements", color: "c", items: ["MODULE", "WORKFLOW", "REPORT", "DASHBOARD"] },
+      { name: "Time Windows", color: "d", items: ["SPRINT", "GATE", "MILESTONE", "GO LIVE"] }
+    ]
+  }
+];
+
+const TRIVIA_PUZZLES = [
+  {
+    title: "OOR Basics",
+    questions: [
+      {
+        q: "How many field workers are impacted by OOR?",
+        opts: ["~400", "~800", "~1,400", "~2,500"],
+        answer: 2
+      },
+      {
+        q: "What does OOR stand for?",
+        opts: ["Oracle One Roof", "Operation One Roof", "One Organizational Rollout", "Operation Oracle Rollout"],
+        answer: 1
+      },
+      {
+        q: "Which system captures field time and replaces paper timesheets?",
+        opts: ["Oracle HCM", "NetSuite", "Miter", "Appficiency"],
+        answer: 2
+      },
+      {
+        q: "Which BU is the primary Pilot?",
+        opts: ["Crowther", "WeatherShield", "Hamilton", "A1 Roofing"],
+        answer: 1
+      },
+      {
+        q: "When does Pilot NetSuite go live?",
+        opts: ["July 1, 2026", "September 1, 2026", "October 1, 2026", "January 1, 2027"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Systems & Partners",
+    questions: [
+      {
+        q: "What does HCM stand for?",
+        opts: ["Human Change Management", "Human Capital Management", "Hourly Cost Model", "Headcount Cost Manager"],
+        answer: 1
+      },
+      {
+        q: "What does MJC stand for?",
+        opts: ["Miter Job Costing", "Material Job Costing", "Monthly Job Close", "Multi-Job Consolidation"],
+        answer: 1
+      },
+      {
+        q: "Which SI is implementing Oracle HCM?",
+        opts: ["RSM", "Deloitte", "IBM", "Accenture"],
+        answer: 2
+      },
+      {
+        q: "Which SI is implementing NetSuite?",
+        opts: ["IBM", "RSM", "Appficiency", "PwC"],
+        answer: 1
+      },
+      {
+        q: "Time data from Miter flows into which system for job costing?",
+        opts: ["Oracle HCM", "NetSuite (via Appficiency)", "SharePoint", "Payroll only"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Timeline & Team",
+    questions: [
+      {
+        q: "When is the Pilot Miter go-live?",
+        opts: ["Aug 14, 2026", "Sept 14, 2026", "Oct 1, 2026", "Nov 1, 2026"],
+        answer: 1
+      },
+      {
+        q: "When is the Pilot Oracle HCM go-live?",
+        opts: ["Sept 1, 2026", "Sept 14, 2026", "Oct 1, 2026", "Nov 1, 2026"],
+        answer: 2
+      },
+      {
+        q: "Who is the OCM Tower Lead?",
+        opts: ["Randall Vaughan", "Jennifer Oriel", "Dan Grisan", "Toni Hanson"],
+        answer: 1
+      },
+      {
+        q: "Who is RCA's CIO?",
+        opts: ["Mark Henefeld", "Michael Dean", "Larry Pennington", "Stephen Howard"],
+        answer: 2
+      },
+      {
+        q: "What is the biggest behavioral-change risk on the engagement?",
+        opts: ["NetSuite Finance", "Oracle HCM for HRBPs", "Field Time Capture (Miter)", "Month-end close"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Waves & Deployment",
+    questions: [
+      {
+        q: "When is Wave 1 go-live?",
+        opts: ["Oct 2026", "Dec 2026 – Jan 2027", "March 2027", "July 2027"],
+        answer: 1
+      },
+      {
+        q: "When is Wave 2 go-live?",
+        opts: ["Jan 2027", "March 2027", "May 2027", "July 2027"],
+        answer: 1
+      },
+      {
+        q: "When is Wave 3 go-live?",
+        opts: ["April 2027", "July 2027", "Sept 2027", "Jan 2028"],
+        answer: 1
+      },
+      {
+        q: "How many Wave 1 BUs are planned?",
+        opts: ["2", "3 (Crowther, Springer-Peterson, Hamilton)", "5", "8"],
+        answer: 1
+      },
+      {
+        q: "Starting when do Finance and HR go live at the same time per BU?",
+        opts: ["Pilot", "2027", "Wave 3 only", "Never — always staggered"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Change Fundamentals",
+    questions: [
+      {
+        q: "Business Readiness is measured at what level?",
+        opts: ["Program only", "Tower only", "BU and role", "Individual only"],
+        answer: 2
+      },
+      {
+        q: "The first 5-7 days of every month should be treated as:",
+        opts: ["Buffer for delays", "Month-end close — avoid scheduling", "Training-only window", "Comms blackout"],
+        answer: 1
+      },
+      {
+        q: "What language access is likely needed for field crews?",
+        opts: ["French", "Spanish", "Portuguese", "German"],
+        answer: 1
+      },
+      {
+        q: "Who is the most critical influence layer for Miter adoption?",
+        opts: ["BU Presidents", "Corporate HR", "Field supervisors and crew leads", "IT support"],
+        answer: 2
+      },
+      {
+        q: "What is the Pilot's role in the program?",
+        opts: ["Optional practice", "Proving ground for future waves", "Legacy shutdown only", "Training pilot only"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Business Units",
+    questions: [
+      {
+        q: "Which BUs are in the Pilot wave?",
+        opts: ["WeatherShield, FSO, Rooftech", "Crowther, Hamilton, Rooftech", "WeatherShield only", "All Wave 1 BUs"],
+        answer: 0
+      },
+      {
+        q: "Which of these is a Wave 1 BU?",
+        opts: ["A1 Roofing", "Springer-Peterson", "BDI", "Front Range"],
+        answer: 1
+      },
+      {
+        q: "Which of these is a Wave 3 BU?",
+        opts: ["Crowther", "Bone Dry", "Dynamic", "WeatherShield"],
+        answer: 2
+      },
+      {
+        q: "What kind of company is RCA (parent structure)?",
+        opts: ["Public company IPO", "PE-backed multi-brand rollup", "Family owned", "Franchise"],
+        answer: 1
+      },
+      {
+        q: "Where is RCA HQ?",
+        opts: ["Dallas, TX", "Charlotte, NC", "Atlanta, GA", "Denver, CO"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Field & Miter",
+    questions: [
+      {
+        q: "Miter is replacing what?",
+        opts: ["Excel timesheets", "Paper timesheets", "Punch clocks", "Verbal reporting"],
+        answer: 1
+      },
+      {
+        q: "Who are the primary Miter end users?",
+        opts: ["BU Presidents", "Corporate HR", "Field supervisors and crews", "IT teams"],
+        answer: 2
+      },
+      {
+        q: "Miter time data flows to which system for job costing?",
+        opts: ["Excel", "SharePoint", "NetSuite (via Appficiency)", "Oracle Reports"],
+        answer: 2
+      },
+      {
+        q: "Roughly how many field workers use Miter?",
+        opts: ["~400", "~800", "~1,400", "~3,000"],
+        answer: 2
+      },
+      {
+        q: "Why is Miter considered the highest behavioral change risk?",
+        opts: ["It costs the most", "Field crews have variable digital literacy and language needs", "It launches last", "IT hasn't approved it"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Change Management",
+    questions: [
+      {
+        q: "Which 5-step change framework does 'AWARE-DESIRE-KNOW-ABLE' come from?",
+        opts: ["McKinsey 7S", "ADKAR", "Kotter 8 Steps", "Lewin's 3 Stages"],
+        answer: 1
+      },
+      {
+        q: "Business Readiness is measured at what level?",
+        opts: ["Program only", "BU only", "BU and role", "Individual only"],
+        answer: 2
+      },
+      {
+        q: "What's RCA's expectation of the Levata team?",
+        opts: ["Consulting from a distance", "Fly in once a month", "Embedded, one team", "Remote-only support"],
+        answer: 2
+      },
+      {
+        q: "How often should readiness be pulsed?",
+        opts: ["Once per program", "Once per wave", "Recurring through every wave", "Only after go-live"],
+        answer: 2
+      },
+      {
+        q: "For field crews, what language access is likely needed?",
+        opts: ["French", "Spanish", "Mandarin", "Portuguese"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "OOR Systems Map",
+    questions: [
+      {
+        q: "Which system handles Field Time Capture?",
+        opts: ["Oracle HCM", "NetSuite", "Miter", "Appficiency"],
+        answer: 2
+      },
+      {
+        q: "Which system handles HR, Payroll, and Time (non-field)?",
+        opts: ["Miter", "Oracle HCM Cloud", "NetSuite", "SAP"],
+        answer: 1
+      },
+      {
+        q: "Which system is the Finance ERP?",
+        opts: ["Oracle NetSuite", "SAP", "Workday", "Peoplesoft"],
+        answer: 0
+      },
+      {
+        q: "What is Appficiency's role?",
+        opts: ["A separate HR system", "Construction-specific add-on to NetSuite (MJC)", "Time capture", "Reporting only"],
+        answer: 1
+      },
+      {
+        q: "Time data flows Miter → ___",
+        opts: ["Oracle HCM only", "NetSuite (for job costing)", "SharePoint", "Nowhere — Miter stands alone"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "RCA & Program Basics",
+    questions: [
+      {
+        q: "Where is RCA HQ?",
+        opts: ["Dallas, TX", "Denver, CO", "Atlanta, GA", "Charlotte, NC"],
+        answer: 2
+      },
+      {
+        q: "How does RCA refer to its Business Units internally?",
+        opts: ["Franchises", "Divisions", "Companies", "Regions"],
+        answer: 2
+      },
+      {
+        q: "The first 5-7 days of every month are:",
+        opts: ["Free for training", "Month-end close — avoid scheduling", "Payroll blackout", "Comms freeze"],
+        answer: 1
+      },
+      {
+        q: "Roofing is what kind of business?",
+        opts: ["Contract-based", "Storm-driven — priorities can shift overnight", "Seasonal only in winter", "Fully predictable"],
+        answer: 1
+      },
+      {
+        q: "RCA is owned by what parent?",
+        opts: ["FirstService", "Berkshire", "KKR", "Bain Capital"],
+        answer: 0
+      }
+    ]
+  },
+  {
+    title: "Program History",
+    questions: [
+      {
+        q: "OOR originally launched to transform which function?",
+        opts: ["HR only", "Finance (NetSuite)", "Field ops", "IT"],
+        answer: 1
+      },
+      {
+        q: "Scope expanded to add which functions?",
+        opts: ["Marketing", "HCM, Payroll, and Time", "Sales", "Procurement only"],
+        answer: 1
+      },
+      {
+        q: "What happened to the internal change leader before Levata joined?",
+        opts: ["Retired", "Was hired away", "Position was lost prior to Levata's engagement", "Still in role"],
+        answer: 2
+      },
+      {
+        q: "Who leads the OCM Tower?",
+        opts: ["Larry Pennington", "Dawn Dominick", "Jennifer Oriel", "Randall Vaughan"],
+        answer: 2
+      },
+      {
+        q: "What are the estimated engagement end dates?",
+        opts: ["Dec 2026", "Aug 2027", "Dec 2027", "May 2028"],
+        answer: 1
+      }
+    ]
+  }
+];
+
+/* ---------- STORAGE ---------- */
+
+const STORAGE_KEY = "oor_puzzle_league_v1";
+
+function loadState() {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return {
+    name: "",
+    completions: {}, // key: "wordle-2026-07-28" -> { won, guesses, time, share }
+    stats: { played: 0, wins: 0, streak: 0, lastPlayedDrop: null, points: 0 },
+    leaderboard: {} // playerName -> { played, wins, points }
+  };
+  try {
+    return JSON.parse(raw);
+  } catch(e) {
+    return { name: "", completions: {}, stats: { played: 0, wins: 0, streak: 0, lastPlayedDrop: null, points: 0 }, leaderboard: {} };
+  }
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+let state = loadState();
+let sharedLeaderboard = null; // Cached team leaderboard from JSONBin
+
+/* ---------- SHARED LEADERBOARD (JSONBin) ---------- */
+
+async function fetchSharedLeaderboard() {
+  if (!LEADERBOARD_ENABLED()) return null;
+  try {
+    const res = await fetch(
+      "https://api.jsonbin.io/v3/b/" + LEADERBOARD_CONFIG.binId + "/latest",
+      { headers: { "X-Master-Key": LEADERBOARD_CONFIG.apiKey } }
+    );
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    return (data && data.record) || {};
+  } catch (e) {
+    console.warn("Leaderboard fetch failed:", e);
+    return null;
+  }
+}
+
+async function pushSharedLeaderboard() {
+  if (!LEADERBOARD_ENABLED() || !state.name) return;
+  try {
+    const current = (await fetchSharedLeaderboard()) || {};
+    const mine = state.leaderboard[state.name] || { played: 0, wins: 0, points: 0 };
+    const existing = current[state.name] || { played: 0, wins: 0, points: 0 };
+    // Cumulative max keeps us honest across devices and prevents regressions.
+    current[state.name] = {
+      played: Math.max(existing.played, mine.played),
+      wins: Math.max(existing.wins, mine.wins),
+      points: Math.max(existing.points, mine.points),
+      lastPlayed: new Date().toISOString().split("T")[0]
+    };
+    const res = await fetch(
+      "https://api.jsonbin.io/v3/b/" + LEADERBOARD_CONFIG.binId,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Master-Key": LEADERBOARD_CONFIG.apiKey
+        },
+        body: JSON.stringify(current)
+      }
+    );
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    sharedLeaderboard = current;
+    renderLeaderboard();
+  } catch (e) {
+    console.warn("Leaderboard push failed:", e);
+  }
+}
+
+async function refreshSharedLeaderboard() {
+  const data = await fetchSharedLeaderboard();
+  if (data) {
+    sharedLeaderboard = data;
+    renderLeaderboard();
+  }
+}
+
+/* ---------- DATE / DROP LOGIC ---------- */
+
+function currentDrop() {
+  // Puzzles rotate every Tuesday. Drop index = count of Tuesdays from anchor.
+  const anchor = new Date("2026-07-28T00:00:00"); // League kickoff = Tue Jul 28, 2026
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  anchor.setHours(0, 0, 0, 0);
+
+  let dropIndex = 0;
+  const d = new Date(anchor);
+  while (d <= today) {
+    if (d.getDay() === 2) dropIndex++;
+    d.setDate(d.getDate() + 1);
+  }
+  const finalIndex = Math.max(1, dropIndex);
+
+  // Next Tuesday
+  const next = new Date(today);
+  next.setDate(next.getDate() + 1);
+  while (next.getDay() !== 2) next.setDate(next.getDate() + 1);
+
+  // Most recent Tuesday on or before today
+  const curDrop = new Date(today);
+  let safety = 0;
+  while (curDrop.getDay() !== 2 && safety++ < 8) {
+    curDrop.setDate(curDrop.getDate() - 1);
+  }
+
+  return {
+    index: finalIndex,
+    dropDate: curDrop.toISOString().split("T")[0],
+    nextDate: next.toISOString().split("T")[0],
+    isDropDay: today.getDay() === 2
+  };
+}
+
+function todayKey(gameName) {
+  const d = currentDrop();
+  return gameName + "-" + d.dropDate;
+}
+
+function currentPuzzle(bank) {
+  const d = currentDrop();
+  return bank[(d.index - 1) % bank.length];
+}
+
+/* ---------- UI HELPERS ---------- */
+
+function toast(msg) {
+  const host = document.getElementById("toastHost");
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.textContent = msg;
+  host.appendChild(el);
+  setTimeout(() => el.remove(), 2600);
+}
+
+function goHome() {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("viewHome").classList.add("active");
+  renderHome();
+}
+
+function openGame(g) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view" + g.charAt(0).toUpperCase() + g.slice(1)).classList.add("active");
+  if (g === "wordle") initWordle();
+  if (g === "connections") initConnections();
+  if (g === "trivia") initTrivia();
+}
+
+/* ---------- HOME RENDER ---------- */
+
+function renderHome() {
+  if (!state.name) {
+    document.getElementById("setupSection").style.display = "block";
+    document.getElementById("mainSection").style.display = "none";
+    return;
+  }
+  document.getElementById("setupSection").style.display = "none";
+  document.getElementById("mainSection").style.display = "block";
+  document.getElementById("playerLabel").textContent = state.name;
+
+  const d = currentDrop();
+  const dropStr = new Date(d.dropDate + "T00:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+  document.getElementById("dropBanner").textContent = "🎯 Drop #" + d.index + " · " + dropStr;
+
+  ["wordle", "connections", "trivia"].forEach(g => {
+    const key = todayKey(g);
+    const done = !!state.completions[key];
+    const tile = document.getElementById("tile" + g.charAt(0).toUpperCase() + g.slice(1));
+    const status = document.getElementById("status" + g.charAt(0).toUpperCase() + g.slice(1));
+    if (done) {
+      tile.classList.add("done");
+      const c = state.completions[key];
+      status.textContent = c.won ? "Solved" : "Missed";
+    } else {
+      tile.classList.remove("done");
+      status.textContent = "Ready to play";
+    }
+  });
+
+  document.getElementById("statPlayed").textContent = state.stats.played;
+  document.getElementById("statWins").textContent = state.stats.wins;
+  document.getElementById("statStreak").textContent = state.stats.streak;
+  document.getElementById("statPts").textContent = state.stats.points;
+
+  renderLeaderboard();
+  if (LEADERBOARD_ENABLED()) refreshSharedLeaderboard();
+  renderAnnouncement();
+}
+
+function renderAnnouncement() {
+  const d = currentDrop();
+  const dropDate = new Date(d.dropDate + "T00:00:00").toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+  const url = localStorage.getItem("oor_app_url") || "[paste your app URL here]";
+  const msg =
+    "OOR Puzzle League — Drop #" + d.index + " is live\n" +
+    "\n" +
+    "This week's puzzles landed for " + dropDate + ":\n" +
+    "  1. Wordle (OOR-themed 5-letter word)\n" +
+    "  2. Connections (four groups of four)\n" +
+    "  3. OOR Trivia (five quick questions)\n" +
+    "\n" +
+    "Play here: " + url + "\n" +
+    "\n" +
+    "Scores auto-post to the team leaderboard. See you at the top.";
+  document.getElementById("announcerText").textContent = msg;
+}
+
+function copyAnnouncement() {
+  const text = document.getElementById("announcerText").textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    toast("Announcement copied. Paste in Teams.");
+  }).catch(() => toast("Couldn't copy — long-press the text to copy."));
+}
+
+function editAppUrl() {
+  const current = localStorage.getItem("oor_app_url") || "";
+  const v = prompt("Paste the live URL where you host the app (e.g., https://oor-puzzles.netlify.app):", current);
+  if (v === null) return;
+  localStorage.setItem("oor_app_url", v.trim());
+  renderAnnouncement();
+  toast("App URL saved.");
+}
+
+function renderLeaderboard() {
+  const el = document.getElementById("leaderboard");
+  const labelEl = document.getElementById("lbLabel");
+  // Prefer shared leaderboard if configured and fetched; else use local
+  const source = (LEADERBOARD_ENABLED() && sharedLeaderboard)
+    ? sharedLeaderboard
+    : state.leaderboard || {};
+  if (labelEl) {
+    labelEl.textContent = LEADERBOARD_ENABLED()
+      ? (sharedLeaderboard ? "Live · team-wide" : "Loading team scores…")
+      : "Personal only · shared board not configured";
+  }
+  const entries = Object.entries(source);
+  if (entries.length === 0) {
+    el.innerHTML = '<div class="lb-empty">No plays logged yet. Be the first to score.</div>';
+    return;
+  }
+  entries.sort((a,b) => (b[1].points||0) - (a[1].points||0));
+  const top = entries.slice(0, 10);
+  el.innerHTML = top.map(([name, s], i) => {
+    const me = name === state.name;
+    return `<div class="lb-row ${me ? "you" : ""}">
+      <div class="rank">${i+1}</div>
+      <div class="name">${name}${me ? " (you)" : ""}</div>
+      <div class="games">${s.wins||0}W / ${s.played||0}P</div>
+      <div class="pts">${s.points||0}</div>
+    </div>`;
+  }).join("");
+}
+
+function savePlayerName() {
+  const v = document.getElementById("nameInput").value.trim();
+  if (!v) { toast("Enter a name first"); return; }
+  state.name = v;
+  if (!state.leaderboard[v]) state.leaderboard[v] = { played: 0, wins: 0, points: 0 };
+  saveState();
+  renderHome();
+}
+
+function changeName() {
+  const cur = state.name;
+  const v = prompt("Change your display name:", cur);
+  if (!v || v.trim() === cur) return;
+  const newName = v.trim();
+  if (state.leaderboard[cur]) {
+    state.leaderboard[newName] = state.leaderboard[cur];
+    delete state.leaderboard[cur];
+  }
+  state.name = newName;
+  saveState();
+  renderHome();
+}
+
+/* ---------- SCORING ---------- */
+
+function recordCompletion(game, result) {
+  const key = todayKey(game);
+  if (state.completions[key]) return; // already done today
+  state.completions[key] = result;
+
+  const d = currentDrop();
+  state.stats.played++;
+  if (result.won) state.stats.wins++;
+
+  // Streak = consecutive completed games
+  if (state.stats.lastPlayedDrop === d.index - 1 || state.stats.lastPlayedDrop === d.index) {
+    if (result.won) state.stats.streak++;
+  } else if (result.won) {
+    state.stats.streak = 1;
+  } else {
+    state.stats.streak = 0;
+  }
+  state.stats.lastPlayedDrop = d.index;
+
+  // Points: Wordle max 60 based on guesses, Connections 40 base + 10 per mistake avoided, Trivia 10/correct
+  let pts = 0;
+  if (result.won) {
+    if (game === "wordle") pts = Math.max(10, 70 - (result.guesses * 10));
+    if (game === "connections") pts = 10 + (result.mistakesLeft * 15);
+    if (game === "trivia") pts = result.correct * 10;
+  } else {
+    if (game === "trivia") pts = result.correct * 5; // partial credit
+  }
+  state.stats.points += pts;
+  result.points = pts;
+
+  // Update self in leaderboard
+  if (!state.leaderboard[state.name]) state.leaderboard[state.name] = { played: 0, wins: 0, points: 0 };
+  const lb = state.leaderboard[state.name];
+  lb.played++;
+  if (result.won) lb.wins++;
+  lb.points += pts;
+
+  saveState();
+  // Push to shared leaderboard if configured (fire and forget)
+  pushSharedLeaderboard();
+  return pts;
+}
+
+/* =========================================================================
+   WORDLE
+   ========================================================================= */
+
+let wordleState = null;
+
+function initWordle() {
+  const puzzle = currentPuzzle(WORDLE_PUZZLES);
+  const key = todayKey("wordle");
+  const done = state.completions[key];
+
+  document.getElementById("wordleTag").textContent = "Drop #" + currentDrop().index;
+
+  wordleState = {
+    word: puzzle.word.toUpperCase(),
+    hint: puzzle.hint,
+    guesses: done ? done.rows : [],
+    current: "",
+    over: !!done,
+    won: done ? done.won : false
+  };
+
+  updateWordleHint();
+  renderWordleBoard();
+  renderWordleKeyboard();
+
+  if (done) {
+    setTimeout(() => showWordleResult(done, true), 200);
+  }
+}
+
+function updateWordleHint() {
+  const el = document.getElementById("wordleHint");
+  const guesses = wordleState.guesses.length;
+  if (guesses >= 3 || wordleState.over) {
+    el.textContent = "Hint: " + wordleState.hint;
+    el.style.opacity = "1";
+  } else {
+    const left = 3 - guesses;
+    el.textContent = "🔒 Hint unlocks after " + left + " more " + (left === 1 ? "guess" : "guesses") + ".";
+    el.style.opacity = "0.7";
+  }
+}
+
+function renderWordleBoard() {
+  const board = document.getElementById("wordleBoard");
+  board.innerHTML = "";
+  for (let r = 0; r < 6; r++) {
+    const row = document.createElement("div");
+    row.className = "wordle-row";
+    let letters, colors;
+    if (r < wordleState.guesses.length) {
+      letters = wordleState.guesses[r].split("");
+      colors = wordleColorRow(wordleState.guesses[r]);
+    } else if (r === wordleState.guesses.length && !wordleState.over) {
+      letters = wordleState.current.padEnd(5, " ").split("");
+      colors = [null, null, null, null, null];
+    } else {
+      letters = ["", "", "", "", ""];
+      colors = [null, null, null, null, null];
+    }
+    for (let c = 0; c < 5; c++) {
+      const cell = document.createElement("div");
+      cell.className = "wordle-cell";
+      const ch = letters[c].trim();
+      cell.textContent = ch;
+      if (ch && !colors[c]) cell.classList.add("filled");
+      if (colors[c]) cell.classList.add(colors[c]);
+      row.appendChild(cell);
+    }
+    board.appendChild(row);
+  }
+}
+
+function wordleColorRow(guess) {
+  const answer = wordleState.word.split("");
+  const g = guess.split("");
+  const colors = ["miss", "miss", "miss", "miss", "miss"];
+  const used = [false, false, false, false, false];
+  for (let i = 0; i < 5; i++) {
+    if (g[i] === answer[i]) { colors[i] = "hit"; used[i] = true; }
+  }
+  for (let i = 0; i < 5; i++) {
+    if (colors[i] === "hit") continue;
+    for (let j = 0; j < 5; j++) {
+      if (!used[j] && g[i] === answer[j]) { colors[i] = "warm"; used[j] = true; break; }
+    }
+  }
+  return colors;
+}
+
+function renderWordleKeyboard() {
+  const kb = document.getElementById("wordleKeyboard");
+  kb.innerHTML = "";
+  const rows = [
+    "QWERTYUIOP".split(""),
+    "ASDFGHJKL".split(""),
+    ["ENTER"].concat("ZXCVBNM".split("")).concat(["BACK"])
+  ];
+  const letterStatus = {};
+  wordleState.guesses.forEach(g => {
+    const colors = wordleColorRow(g);
+    g.split("").forEach((ch, i) => {
+      const rank = { hit: 3, warm: 2, miss: 1 };
+      if (!letterStatus[ch] || rank[colors[i]] > rank[letterStatus[ch]]) {
+        letterStatus[ch] = colors[i];
+      }
+    });
+  });
+  rows.forEach(row => {
+    const div = document.createElement("div");
+    div.className = "kb-row";
+    row.forEach(k => {
+      const b = document.createElement("button");
+      b.className = "kb-key";
+      if (k === "ENTER" || k === "BACK") b.classList.add("wide");
+      b.textContent = k === "BACK" ? "⌫" : k;
+      if (letterStatus[k]) b.classList.add(letterStatus[k]);
+      b.onclick = () => wordleKey(k);
+      div.appendChild(b);
+    });
+    kb.appendChild(div);
+  });
+}
+
+function wordleKey(k) {
+  if (wordleState.over) return;
+  if (k === "ENTER") {
+    if (wordleState.current.length !== 5) { toast("Not enough letters"); return; }
+    wordleState.guesses.push(wordleState.current);
+    if (wordleState.current === wordleState.word) {
+      wordleState.over = true;
+      wordleState.won = true;
+    } else if (wordleState.guesses.length >= 6) {
+      wordleState.over = true;
+    }
+    wordleState.current = "";
+    renderWordleBoard();
+    renderWordleKeyboard();
+    updateWordleHint();
+    if (wordleState.over) finishWordle();
+  } else if (k === "BACK") {
+    wordleState.current = wordleState.current.slice(0, -1);
+    renderWordleBoard();
+  } else if (/^[A-Z]$/.test(k) && wordleState.current.length < 5) {
+    wordleState.current += k;
+    renderWordleBoard();
+  }
+}
+
+document.addEventListener("keydown", (e) => {
+  if (!document.getElementById("viewWordle").classList.contains("active")) return;
+  if (e.key === "Enter") wordleKey("ENTER");
+  else if (e.key === "Backspace") wordleKey("BACK");
+  else if (/^[a-zA-Z]$/.test(e.key)) wordleKey(e.key.toUpperCase());
+});
+
+function finishWordle() {
+  const rows = wordleState.guesses.slice();
+  const result = {
+    won: wordleState.won,
+    guesses: rows.length,
+    rows: rows,
+    share: buildWordleShare(rows, wordleState.won)
+  };
+  const pts = recordCompletion("wordle", result);
+  result.points = pts;
+  setTimeout(() => showWordleResult(result, false), 700);
+}
+
+function buildWordleShare(rows, won) {
+  const dropIx = currentDrop().index;
+  const header = "OOR Wordle #" + dropIx + " " + (won ? rows.length : "X") + "/6";
+  const grid = rows.map(g => {
+    const cs = wordleColorRow(g);
+    return cs.map(c => c === "hit" ? "🟩" : c === "warm" ? "🟨" : "⬛").join("");
+  }).join("\n");
+  return header + "\n" + grid;
+}
+
+function showWordleResult(res, isReplay) {
+  document.getElementById("resultTitle").textContent = res.won ? "Nice! " + res.guesses + "/6" : "So close!";
+  document.getElementById("resultSub").textContent = res.won
+    ? (isReplay ? "You already played this drop." : "You earned " + res.points + " pts.")
+    : "The word was " + wordleState.word + ".";
+  document.getElementById("resultGrid").textContent = res.share;
+  document.getElementById("resultAnswer").textContent = "";
+  window._lastShare = res.share;
+  document.getElementById("resultModal").classList.add("open");
+}
+
+/* =========================================================================
+   CONNECTIONS
+   ========================================================================= */
+
+let connState = null;
+
+function initConnections() {
+  const puzzle = currentPuzzle(CONNECTIONS_PUZZLES);
+  const key = todayKey("connections");
+  const done = state.completions[key];
+  document.getElementById("connTag").textContent = "Drop #" + currentDrop().index;
+
+  const allItems = [];
+  puzzle.groups.forEach(g => g.items.forEach(it => allItems.push({ text: it, group: g })));
+
+  // Seeded shuffle by drop index (so all players see same order)
+  const seed = currentDrop().index;
+  const shuffled = seededShuffle(allItems, seed);
+
+  connState = {
+    puzzle,
+    items: shuffled,
+    selected: [],
+    solved: [], // array of group objects solved
+    mistakes: 0,
+    maxMistakes: 4,
+    over: !!done,
+    won: done ? done.won : false,
+    history: done ? done.history : [] // rows of colors for share
+  };
+  renderConnections();
+  if (done) setTimeout(() => showConnectionsResult(done, true), 200);
+}
+
+function seededShuffle(arr, seed) {
+  const a = arr.slice();
+  let s = seed * 9301 + 49297;
+  for (let i = a.length - 1; i > 0; i--) {
+    s = (s * 9301 + 49297) % 233280;
+    const j = Math.floor((s / 233280) * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function renderConnections() {
+  const grid = document.getElementById("connGrid");
+  grid.innerHTML = "";
+  connState.solved.forEach(g => {
+    const div = document.createElement("div");
+    div.className = "conn-solved " + g.color;
+    div.innerHTML = `<span class="group-name">${g.name}</span><span class="group-items">${g.items.join(", ")}</span>`;
+    grid.appendChild(div);
+  });
+  const remaining = connState.items.filter(it => !connState.solved.some(g => g.items.includes(it.text)));
+  remaining.forEach(it => {
+    const div = document.createElement("div");
+    div.className = "conn-tile";
+    if (connState.selected.includes(it.text)) div.classList.add("selected");
+    div.textContent = it.text;
+    div.onclick = () => connToggle(it.text);
+    grid.appendChild(div);
+  });
+  // mistakes dots
+  const m = document.getElementById("connMistakes");
+  m.innerHTML = '<span class="lbl">Mistakes remaining:</span>';
+  for (let i = 0; i < connState.maxMistakes; i++) {
+    const dot = document.createElement("div");
+    dot.className = "dot" + (i < connState.mistakes ? " lost" : "");
+    m.appendChild(dot);
+  }
+  document.getElementById("connSubmit").disabled = connState.selected.length !== 4 || connState.over;
+}
+
+function connToggle(text) {
+  if (connState.over) return;
+  const i = connState.selected.indexOf(text);
+  if (i >= 0) connState.selected.splice(i, 1);
+  else if (connState.selected.length < 4) connState.selected.push(text);
+  renderConnections();
+}
+
+function connShuffle() {
+  if (connState.over) return;
+  connState.items = seededShuffle(connState.items, Date.now() % 1000);
+  renderConnections();
+}
+
+function connDeselect() {
+  if (connState.over) return;
+  connState.selected = [];
+  renderConnections();
+}
+
+function connSubmit() {
+  if (connState.selected.length !== 4 || connState.over) return;
+  const grp = connState.puzzle.groups.find(g =>
+    connState.selected.every(s => g.items.includes(s))
+  );
+  const colors = connState.selected.map(s => {
+    const g = connState.puzzle.groups.find(gr => gr.items.includes(s));
+    return g.color;
+  });
+  connState.history.push(colors);
+  if (grp && !connState.solved.some(g => g.name === grp.name)) {
+    connState.solved.push(grp);
+    connState.selected = [];
+    if (connState.solved.length === 4) {
+      connState.over = true;
+      connState.won = true;
+    }
+  } else {
+    connState.mistakes++;
+    if (connState.mistakes >= connState.maxMistakes) {
+      connState.over = true;
+      // reveal remaining groups
+      connState.puzzle.groups.forEach(g => {
+        if (!connState.solved.some(s => s.name === g.name)) connState.solved.push(g);
+      });
+    }
+    toast("Not quite.");
+  }
+  renderConnections();
+  if (connState.over) finishConnections();
+}
+
+function finishConnections() {
+  const result = {
+    won: connState.won,
+    mistakesLeft: connState.maxMistakes - connState.mistakes,
+    history: connState.history,
+    share: buildConnectionsShare()
+  };
+  const pts = recordCompletion("connections", result);
+  result.points = pts;
+  setTimeout(() => showConnectionsResult(result, false), 700);
+}
+
+function buildConnectionsShare() {
+  const dropIx = currentDrop().index;
+  const header = "OOR Connections #" + dropIx;
+  const colorMap = { a: "🟧", b: "🟩", c: "🟦", d: "🟪" };
+  const grid = connState.history.map(row => row.map(c => colorMap[c]).join("")).join("\n");
+  return header + "\n" + grid;
+}
+
+function showConnectionsResult(res, isReplay) {
+  document.getElementById("resultTitle").textContent = res.won ? "Solved!" : "Tough one.";
+  document.getElementById("resultSub").textContent = res.won
+    ? (isReplay ? "You already played this drop." : "You earned " + res.points + " pts.")
+    : "Better luck on Thursday's drop.";
+  document.getElementById("resultGrid").textContent = res.share;
+  document.getElementById("resultAnswer").textContent = "";
+  window._lastShare = res.share;
+  document.getElementById("resultModal").classList.add("open");
+}
+
+/* =========================================================================
+   TRIVIA
+   ========================================================================= */
+
+let trivState = null;
+
+function initTrivia() {
+  const puzzle = currentPuzzle(TRIVIA_PUZZLES);
+  const key = todayKey("trivia");
+  const done = state.completions[key];
+  document.getElementById("trivTag").textContent = "Drop #" + currentDrop().index;
+
+  trivState = {
+    puzzle,
+    answers: done ? done.answers : Array(puzzle.questions.length).fill(null),
+    over: !!done,
+    correctCount: done ? done.correct : 0
+  };
+  renderTrivia();
+  if (done) setTimeout(() => showTrivResult(done, true), 200);
+}
+
+function renderTrivia() {
+  const el = document.getElementById("trivContainer");
+  el.innerHTML = "";
+  trivState.puzzle.questions.forEach((q, qi) => {
+    const div = document.createElement("div");
+    div.className = "trivia-q";
+    const ansIdx = trivState.answers[qi];
+    div.innerHTML = `<div class="q-num">Question ${qi+1} of ${trivState.puzzle.questions.length}</div>
+      <div class="q-text">${q.q}</div>`;
+    q.opts.forEach((opt, oi) => {
+      const b = document.createElement("button");
+      b.className = "trivia-opt";
+      b.textContent = opt;
+      if (ansIdx !== null) {
+        b.classList.add("disabled");
+        if (oi === q.answer) b.classList.add("correct");
+        else if (oi === ansIdx) b.classList.add("wrong");
+      } else {
+        b.onclick = () => trivAnswer(qi, oi);
+      }
+      div.appendChild(b);
+    });
+    el.appendChild(div);
+  });
+  const allAnswered = trivState.answers.every(a => a !== null);
+  document.getElementById("trivFinish").disabled = !allAnswered || trivState.over;
+}
+
+function trivAnswer(qi, oi) {
+  if (trivState.answers[qi] !== null) return;
+  trivState.answers[qi] = oi;
+  if (oi === trivState.puzzle.questions[qi].answer) trivState.correctCount++;
+  renderTrivia();
+}
+
+function trivFinish() {
+  const total = trivState.puzzle.questions.length;
+  const won = trivState.correctCount >= Math.ceil(total * 0.6); // 60% = pass
+  const result = {
+    won,
+    correct: trivState.correctCount,
+    total,
+    answers: trivState.answers,
+    share: buildTrivShare()
+  };
+  trivState.over = true;
+  const pts = recordCompletion("trivia", result);
+  result.points = pts;
+  setTimeout(() => showTrivResult(result, false), 300);
+}
+
+function buildTrivShare() {
+  const dropIx = currentDrop().index;
+  const header = "OOR Trivia #" + dropIx + " " + trivState.correctCount + "/" + trivState.puzzle.questions.length;
+  const grid = trivState.answers.map((a, i) => a === trivState.puzzle.questions[i].answer ? "🟩" : "🟥").join("");
+  return header + "\n" + grid;
+}
+
+function showTrivResult(res, isReplay) {
+  document.getElementById("resultTitle").textContent = "Score: " + res.correct + "/" + res.total;
+  document.getElementById("resultSub").textContent = res.won
+    ? (isReplay ? "You already played this drop." : "You earned " + res.points + " pts.")
+    : "Not your best. Comms will help next time.";
+  document.getElementById("resultGrid").textContent = res.share;
+  document.getElementById("resultAnswer").textContent = "";
+  window._lastShare = res.share;
+  document.getElementById("resultModal").classList.add("open");
+}
+
+/* ---------- RESULT MODAL ---------- */
+
+function copyResult() {
+  const text = (state.name ? state.name + " · " : "") + window._lastShare;
+  navigator.clipboard.writeText(text).then(() => {
+    toast("Copied. Paste in the OOR Teams channel!");
+  }).catch(() => {
+    toast("Couldn't copy — long press the grid to copy manually.");
+  });
+}
+
+function closeResult() {
+  document.getElementById("resultModal").classList.remove("open");
+  goHome();
+}
+
+/* ---------- BOOT ---------- */
+
+document.getElementById("footerYear").textContent = new Date().getFullYear();
+renderHome();
+</script>
+
+</body>
+</html>
