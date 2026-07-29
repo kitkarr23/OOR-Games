@@ -553,6 +553,130 @@
   }
   .footer-note a { color: var(--red); }
 
+  /* Section header */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0 12px;
+  }
+  .section-head .lbl {
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    font-family: "Aptos Display", "Aptos", sans-serif;
+  }
+  .section-head .line {
+    flex: 1;
+    height: 2px;
+    background: var(--red);
+    opacity: 0.4;
+  }
+
+  /* Tic Tac Toe */
+  .ttt-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    max-width: 300px;
+    margin: 20px auto;
+  }
+  .ttt-cell {
+    aspect-ratio: 1;
+    background: var(--surface-2);
+    border: 2px solid var(--border-strong);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: 700;
+    font-family: "Aptos Display", "Aptos", sans-serif;
+    cursor: pointer;
+    color: var(--navy);
+    transition: background 0.15s;
+  }
+  .ttt-cell:hover:not(.filled) { background: var(--warm-gray); }
+  .ttt-cell.filled { cursor: default; }
+  .ttt-cell.x { color: var(--navy); }
+  .ttt-cell.o { color: var(--red); }
+  .ttt-cell.win { background: var(--strong); color: var(--white); }
+  .ttt-status {
+    text-align: center;
+    font-size: 15px;
+    color: var(--text-strong);
+    font-weight: 600;
+    margin: 12px 0;
+    min-height: 24px;
+  }
+
+  /* Memory */
+  .mem-info {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px 0;
+    padding: 12px;
+    background: var(--surface-2);
+    border-radius: 6px;
+  }
+  .mem-info .stat-inline { text-align: center; }
+  .mem-info .stat-inline .n { font-size: 22px; font-weight: 700; color: var(--navy); font-family: "Aptos Display", "Aptos", sans-serif; }
+  .mem-info .stat-inline .l { font-size: 10px; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 1px; }
+  .mem-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .mem-card {
+    aspect-ratio: 1;
+    background: var(--navy);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    user-select: none;
+    color: var(--white);
+  }
+  .mem-card.flipped { background: var(--white); border: 2px solid var(--navy); }
+  .mem-card.matched { background: var(--strong); color: var(--white); border: 2px solid var(--strong); cursor: default; }
+  .mem-card.hidden-emoji { font-size: 0; }
+  .mem-card.hidden-emoji::before { content: "?"; font-size: 32px; }
+
+  /* Reaction */
+  .rxn-box {
+    max-width: 320px;
+    margin: 30px auto;
+    aspect-ratio: 1.5;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: var(--mid-gray);
+    color: var(--white);
+    font-family: "Aptos Display", "Aptos", sans-serif;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px;
+    transition: background 0.15s;
+    user-select: none;
+  }
+  .rxn-box.ready { background: var(--red); font-size: 22px; }
+  .rxn-box.wait { background: var(--red); font-size: 22px; }
+  .rxn-box.go { background: var(--strong); font-size: 44px; }
+  .rxn-box.result { background: var(--navy); font-size: 20px; padding: 30px; }
+  .rxn-box.early { background: var(--red); font-size: 18px; }
+  .rxn-box .sub-msg { font-size: 13px; font-weight: 500; opacity: 0.9; margin-top: 8px; }
+
   /* Brand footer */
   .brand-footer {
     margin: 32px -16px 0;
@@ -614,6 +738,11 @@
         </div>
       </div>
 
+      <div class="section-head">
+        <span class="lbl">This week's drop</span>
+        <span class="line"></span>
+      </div>
+
       <div class="game-tiles">
         <div class="tile" id="tileWordle" onclick="openGame('wordle')">
           <span class="emoji">🟩</span>
@@ -629,6 +758,29 @@
           <span class="emoji">🎯</span>
           <div class="name">OOR Trivia</div>
           <div class="status" id="statusTrivia">Ready to play</div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <span class="lbl">Just for fun · brain breaks</span>
+        <span class="line"></span>
+      </div>
+
+      <div class="game-tiles">
+        <div class="tile" onclick="openGame('tictactoe')">
+          <span class="emoji">⭕</span>
+          <div class="name">Tic Tac Toe</div>
+          <div class="status">You vs. computer</div>
+        </div>
+        <div class="tile" onclick="openGame('memory')">
+          <span class="emoji">🧠</span>
+          <div class="name">Memory Match</div>
+          <div class="status">Flip and match</div>
+        </div>
+        <div class="tile" onclick="openGame('reaction')">
+          <span class="emoji">⚡</span>
+          <div class="name">Reaction Test</div>
+          <div class="status">Beat your best time</div>
         </div>
       </div>
 
@@ -716,6 +868,55 @@
     <div id="trivContainer"></div>
     <div class="row center" style="margin-top:16px">
       <button id="trivFinish" onclick="trivFinish()" disabled>See results</button>
+    </div>
+  </div>
+
+  <!-- TIC TAC TOE VIEW -->
+  <div id="viewTictactoe" class="view">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2 style="margin:0 0 4px">Tic Tac Toe <span class="badge">Brain Break</span></h2>
+    <div class="muted">You are X. Computer is O. Three in a row wins.</div>
+    <div class="ttt-board" id="tttBoard"></div>
+    <div class="ttt-status" id="tttStatus">Your turn</div>
+    <div class="row center">
+      <button class="ghost" onclick="initTicTacToe()">New game</button>
+    </div>
+  </div>
+
+  <!-- MEMORY VIEW -->
+  <div id="viewMemory" class="view">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2 style="margin:0 0 4px">Memory Match <span class="badge">Brain Break</span></h2>
+    <div class="muted">Flip cards to find matching pairs. Fewer moves is better.</div>
+    <div class="mem-info">
+      <div class="stat-inline">
+        <div class="n" id="memMoves">0</div>
+        <div class="l">Moves</div>
+      </div>
+      <div class="stat-inline">
+        <div class="n" id="memMatches">0</div>
+        <div class="l">Matches</div>
+      </div>
+      <div class="stat-inline">
+        <div class="n" id="memTime">0:00</div>
+        <div class="l">Time</div>
+      </div>
+    </div>
+    <div class="mem-board" id="memBoard"></div>
+    <div class="row center" style="margin-top:16px">
+      <button class="ghost" onclick="initMemory()">New game</button>
+    </div>
+  </div>
+
+  <!-- REACTION VIEW -->
+  <div id="viewReaction" class="view">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <h2 style="margin:0 0 4px">Reaction Test <span class="badge">Brain Break</span></h2>
+    <div class="muted">Click when the box turns green. Don't jump the gun.</div>
+    <div class="rxn-box" id="rxnBox" onclick="rxnClick()">Click to start</div>
+    <div class="row center" style="margin-top:8px; flex-direction:column; gap:4px">
+      <div class="muted" style="font-size:13px"><b style="color:var(--text-strong)">Best time:</b> <span id="rxnBest">—</span></div>
+      <div class="muted" style="font-size:13px"><b style="color:var(--text-strong)">Last time:</b> <span id="rxnLast">—</span></div>
     </div>
   </div>
 
@@ -1408,6 +1609,9 @@ function openGame(g) {
   if (g === "wordle") initWordle();
   if (g === "connections") initConnections();
   if (g === "trivia") initTrivia();
+  if (g === "tictactoe") initTicTacToe();
+  if (g === "memory") initMemory();
+  if (g === "reaction") initReaction();
 }
 
 /* ---------- HOME RENDER ---------- */
@@ -2037,6 +2241,254 @@ function copyResult() {
 function closeResult() {
   document.getElementById("resultModal").classList.remove("open");
   goHome();
+}
+
+/* =========================================================================
+   TIC TAC TOE (vs. Computer)
+   ========================================================================= */
+
+let tttState = null;
+
+function initTicTacToe() {
+  tttState = { board: Array(9).fill(""), turn: "X", over: false, winLine: null };
+  renderTicTacToe();
+  document.getElementById("tttStatus").textContent = "Your turn";
+}
+
+function renderTicTacToe() {
+  const b = document.getElementById("tttBoard");
+  b.innerHTML = "";
+  for (let i = 0; i < 9; i++) {
+    const c = document.createElement("div");
+    c.className = "ttt-cell";
+    if (tttState.board[i]) c.classList.add("filled", tttState.board[i].toLowerCase());
+    if (tttState.winLine && tttState.winLine.includes(i)) c.classList.add("win");
+    c.textContent = tttState.board[i];
+    c.onclick = () => tttClick(i);
+    b.appendChild(c);
+  }
+}
+
+function tttClick(i) {
+  if (tttState.over || tttState.board[i] || tttState.turn !== "X") return;
+  tttState.board[i] = "X";
+  const w = tttCheckWin(tttState.board);
+  if (w) { finishTicTacToe(w); return; }
+  if (tttState.board.every(x => x)) { finishTicTacToe({ winner: "tie" }); return; }
+  tttState.turn = "O";
+  renderTicTacToe();
+  document.getElementById("tttStatus").textContent = "Computer thinking…";
+  setTimeout(tttComputerMove, 450);
+}
+
+function tttComputerMove() {
+  if (tttState.over) return;
+  // Slightly beatable: 75% smart, 25% random for a fun challenge
+  const move = Math.random() < 0.75 ? tttBestMove("O") : tttRandomMove();
+  tttState.board[move] = "O";
+  const w = tttCheckWin(tttState.board);
+  if (w) { finishTicTacToe(w); return; }
+  if (tttState.board.every(x => x)) { finishTicTacToe({ winner: "tie" }); return; }
+  tttState.turn = "X";
+  renderTicTacToe();
+  document.getElementById("tttStatus").textContent = "Your turn";
+}
+
+function tttRandomMove() {
+  const empty = tttState.board.map((v, i) => v === "" ? i : -1).filter(i => i >= 0);
+  return empty[Math.floor(Math.random() * empty.length)];
+}
+
+function tttBestMove(player) {
+  // 1. Take winning move
+  for (let i = 0; i < 9; i++) {
+    if (!tttState.board[i]) {
+      tttState.board[i] = player;
+      if (tttCheckWin(tttState.board)) { tttState.board[i] = ""; return i; }
+      tttState.board[i] = "";
+    }
+  }
+  // 2. Block opponent win
+  const opp = player === "O" ? "X" : "O";
+  for (let i = 0; i < 9; i++) {
+    if (!tttState.board[i]) {
+      tttState.board[i] = opp;
+      if (tttCheckWin(tttState.board)) { tttState.board[i] = ""; return i; }
+      tttState.board[i] = "";
+    }
+  }
+  // 3. Prefer center, corners, edges
+  const priorities = [4, 0, 2, 6, 8, 1, 3, 5, 7];
+  for (const p of priorities) if (!tttState.board[p]) return p;
+  return tttRandomMove();
+}
+
+function tttCheckWin(b) {
+  const lines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  for (const line of lines) {
+    const [a,b1,c] = line;
+    if (b[a] && b[a] === b[b1] && b[a] === b[c]) return { winner: b[a], line };
+  }
+  return null;
+}
+
+function finishTicTacToe(w) {
+  tttState.over = true;
+  tttState.winLine = w.line;
+  renderTicTacToe();
+  const status = document.getElementById("tttStatus");
+  if (w.winner === "X") status.textContent = "You win! 🎉";
+  else if (w.winner === "O") status.textContent = "Computer wins. Rematch?";
+  else status.textContent = "Tie game.";
+}
+
+/* =========================================================================
+   MEMORY MATCH
+   ========================================================================= */
+
+let memState = null;
+let memTimer = null;
+
+const MEMORY_EMOJIS = ["🏠","🔨","⚡","🌩️","🪜","🧱","🔧","🧰"];
+
+function initMemory() {
+  clearInterval(memTimer);
+  const pairs = MEMORY_EMOJIS.slice(); // 8 emojis = 16 cards
+  const deck = [...pairs, ...pairs];
+  // Shuffle
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  memState = {
+    deck,
+    flipped: [],       // indices currently face-up but not matched
+    matched: new Set(),
+    moves: 0,
+    startTime: Date.now(),
+    locked: false
+  };
+  renderMemory();
+  memTimer = setInterval(updateMemTime, 500);
+}
+
+function renderMemory() {
+  const b = document.getElementById("memBoard");
+  b.innerHTML = "";
+  memState.deck.forEach((emoji, i) => {
+    const c = document.createElement("div");
+    const isFlipped = memState.flipped.includes(i);
+    const isMatched = memState.matched.has(i);
+    c.className = "mem-card" + (isFlipped ? " flipped" : "") + (isMatched ? " matched" : "");
+    c.textContent = (isFlipped || isMatched) ? emoji : "?";
+    c.onclick = () => memClick(i);
+    b.appendChild(c);
+  });
+  document.getElementById("memMoves").textContent = memState.moves;
+  document.getElementById("memMatches").textContent = memState.matched.size / 2;
+}
+
+function memClick(i) {
+  if (memState.locked) return;
+  if (memState.matched.has(i)) return;
+  if (memState.flipped.includes(i)) return;
+  if (memState.flipped.length >= 2) return;
+
+  memState.flipped.push(i);
+  renderMemory();
+
+  if (memState.flipped.length === 2) {
+    memState.moves++;
+    const [a, b] = memState.flipped;
+    if (memState.deck[a] === memState.deck[b]) {
+      // Match!
+      memState.matched.add(a);
+      memState.matched.add(b);
+      memState.flipped = [];
+      renderMemory();
+      if (memState.matched.size === memState.deck.length) {
+        clearInterval(memTimer);
+        setTimeout(() => {
+          const elapsed = Math.floor((Date.now() - memState.startTime) / 1000);
+          toast("You won in " + memState.moves + " moves and " + formatTime(elapsed) + "!");
+        }, 300);
+      }
+    } else {
+      memState.locked = true;
+      setTimeout(() => {
+        memState.flipped = [];
+        memState.locked = false;
+        renderMemory();
+      }, 900);
+    }
+  }
+}
+
+function updateMemTime() {
+  if (!memState) return;
+  const elapsed = Math.floor((Date.now() - memState.startTime) / 1000);
+  document.getElementById("memTime").textContent = formatTime(elapsed);
+}
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+/* =========================================================================
+   REACTION TEST
+   ========================================================================= */
+
+let rxnState = { phase: "idle", startAt: 0, timer: null };
+
+function initReaction() {
+  clearTimeout(rxnState.timer);
+  rxnState = { phase: "idle", startAt: 0, timer: null };
+  const box = document.getElementById("rxnBox");
+  box.className = "rxn-box";
+  box.innerHTML = "Click to start";
+  const best = localStorage.getItem("oor_rxn_best");
+  document.getElementById("rxnBest").textContent = best ? best + " ms" : "—";
+  document.getElementById("rxnLast").textContent = "—";
+}
+
+function rxnClick() {
+  const box = document.getElementById("rxnBox");
+  if (rxnState.phase === "idle" || rxnState.phase === "result" || rxnState.phase === "early") {
+    // Start a new round
+    rxnState.phase = "wait";
+    box.className = "rxn-box wait";
+    box.innerHTML = "Wait for green…<div class='sub-msg'>Don't click yet</div>";
+    const delay = 1500 + Math.random() * 3000;
+    rxnState.timer = setTimeout(() => {
+      rxnState.phase = "go";
+      rxnState.startAt = Date.now();
+      box.className = "rxn-box go";
+      box.innerHTML = "CLICK!";
+    }, delay);
+  } else if (rxnState.phase === "wait") {
+    // Clicked too early
+    clearTimeout(rxnState.timer);
+    rxnState.phase = "early";
+    box.className = "rxn-box early";
+    box.innerHTML = "Too early!<div class='sub-msg'>Click to try again</div>";
+  } else if (rxnState.phase === "go") {
+    // Success
+    const ms = Date.now() - rxnState.startAt;
+    rxnState.phase = "result";
+    box.className = "rxn-box result";
+    box.innerHTML = ms + " ms<div class='sub-msg'>Click to go again</div>";
+    document.getElementById("rxnLast").textContent = ms + " ms";
+    const best = parseInt(localStorage.getItem("oor_rxn_best") || "9999", 10);
+    if (ms < best) {
+      localStorage.setItem("oor_rxn_best", String(ms));
+      document.getElementById("rxnBest").textContent = ms + " ms";
+      setTimeout(() => toast("New best time!"), 100);
+    } else {
+      document.getElementById("rxnBest").textContent = best + " ms";
+    }
+  }
 }
 
 /* ---------- BOOT ---------- */
