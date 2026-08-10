@@ -1008,14 +1008,38 @@ const WORDLE_PUZZLES = [
   { word: "PULSE", hint: "A regular readiness ___ check across BUs." },
   { word: "SIGNS", hint: "___ of readiness: usage up, errors down, tickets flat." },
   { word: "COACH", hint: "What a leader does when helping their team through change." },
-  { word: "LEARN", hint: "Everyone on the OOR team is doing a lot of this." }
+  { word: "LEARN", hint: "Everyone on the OOR team is doing a lot of this." },
+  { word: "CLOCK", hint: "___ in on your phone with Miter." },
+  { word: "PHONE", hint: "Miter runs on this device." },
+  { word: "PAPER", hint: "Kevin Callans is moving Crowther away from 700+ daily ___ timesheets." },
+  { word: "STEEL", hint: "One common commercial roofing material besides shingles." },
+  { word: "ROOFS", hint: "'Home for America's Premier ___ ing Contractors' (RCA's positioning)." },
+  { word: "WAGES", hint: "What Oracle Payroll ultimately calculates." },
+  { word: "SPEAK", hint: "OSHA requires training in the language crews ___ ." },
+  { word: "CHAIN", hint: "The OOR integration ___ : Miter → Oracle → NetSuite." },
+  { word: "TRUST", hint: "The direct supervisor is the most-___ ed voice on any jobsite." },
+  { word: "FIRST", hint: "Publicly-traded parent company's name starts with '___ Service Corp'." },
+  { word: "APRON", hint: "Sheet-metal roofing flashing detail." },
+  { word: "EAVES", hint: "The overhanging edges of a roof." },
+  { word: "TILES", hint: "One of four common roofing materials at RCA." },
+  { word: "TEAMS", hint: "Where OOR reminders and Change Leader Network updates get posted." },
+  { word: "BRICK", hint: "Not a roofing material, but part of many building restorations." },
+  { word: "PITCH", hint: "The slope or angle of a roof." },
+  { word: "SLOPE", hint: "The angle or pitch of a roof." },
+  { word: "WORTH", hint: "OOR is a big effort but bigger ___ (the payoff)." },
+  { word: "SIGNS", hint: "Readiness ___ : usage up, errors down, tickets flat." },
+  { word: "SOLID", hint: "'Every ___ roof starts with ___ prep work' — the BR mantra." },
+  { word: "AWARE", hint: "First step of ADKAR change model." },
+  { word: "SHARP", hint: "OOR's payoff includes ___ er reporting." },
+  { word: "LEAKS", hint: "What roofs are engineered to prevent." },
+  { word: "NAILS", hint: "Roofers drive thousands of these per job." }
 ];
 
 const CONNECTIONS_PUZZLES = [
   {
     title: "OOR Basics",
     groups: [
-      { name: "OOR Business Units", color: "a", items: ["WEATHERSHIELD", "CROWTHER", "ROOFTECH", "HAMILTON"] },
+      { name: "OOR Business Units", color: "a", items: ["WEATHERSHIELD", "CROWTHER", "ROOF-TECH", "HAMILTON"] },
       { name: "Core Systems", color: "b", items: ["ORACLE HCM", "NETSUITE", "MITER", "APPFICIENCY"] },
       { name: "ADKAR Steps", color: "c", items: ["AWARE", "DESIRE", "KNOW", "ABLE"] },
       { name: "Roof Parts", color: "d", items: ["SHINGLE", "GUTTER", "FLASHING", "RIDGE"] }
@@ -1024,7 +1048,7 @@ const CONNECTIONS_PUZZLES = [
   {
     title: "People & Waves",
     groups: [
-      { name: "Deployment Waves", color: "a", items: ["PILOT", "WAVE 1", "WAVE 2", "WAVE 3"] },
+      { name: "Deployment Waves", color: "a", items: ["WAVE 1", "WAVE 2", "WAVE 3", "WAVE 5"] },
       { name: "RCA Tower Leads", color: "b", items: ["RANDALL", "STEPHEN", "JOSH", "ALEX"] },
       { name: "Change Roles", color: "c", items: ["SPONSOR", "LEAD", "SME", "USER"] },
       { name: "Storm Weather", color: "d", items: ["HAIL", "WIND", "RAIN", "SNOW"] }
@@ -1040,10 +1064,10 @@ const CONNECTIONS_PUZZLES = [
     ]
   },
   {
-    title: "Wave 2 & 3",
+    title: "Later-Wave BUs",
     groups: [
-      { name: "Wave 2 BUs", color: "a", items: ["BDI", "DAV CO", "BONE DRY", "PITTMAN"] },
-      { name: "Wave 3 BUs", color: "b", items: ["A1", "AAA", "DYNAMIC", "FRONT RANGE"] },
+      { name: "Southeast BUs (TBD wave)", color: "a", items: ["BONE DRY", "PITTMAN WALLER", "HAMILTON", "CROWTHER"] },
+      { name: "West/Southwest BUs (TBD wave)", color: "b", items: ["AAA", "TORC", "DYNAMIC NATIONAL", "FRONT RANGE"] },
       { name: "HR Workstream", color: "c", items: ["HIRE", "PAY", "TIME", "LEAVE"] },
       { name: "Finance Workstream", color: "d", items: ["AP", "AR", "GL", "MJC"] }
     ]
@@ -1069,7 +1093,7 @@ const CONNECTIONS_PUZZLES = [
   {
     title: "Pilot Focus",
     groups: [
-      { name: "Pilot BUs", color: "a", items: ["WEATHERSHIELD", "FSO", "ROOFTECH", "PILOT"] },
+      { name: "Pilot BUs", color: "a", items: ["WEATHERSHIELD", "FSO", "ROOF-TECH", "PILOT"] },
       { name: "Pilot Go-Lives", color: "b", items: ["SEP 1", "SEP 14", "OCT 1", "NOV 1"] },
       { name: "Field Roles", color: "c", items: ["FOREMAN", "CREW LEAD", "SUPER", "PM"] },
       { name: "Time Capture Terms", color: "d", items: ["CLOCK IN", "JOB CODE", "APPROVE", "SUBMIT"] }
@@ -1119,6 +1143,393 @@ const CONNECTIONS_PUZZLES = [
       { name: "System Elements", color: "c", items: ["MODULE", "WORKFLOW", "REPORT", "DASHBOARD"] },
       { name: "Time Windows", color: "d", items: ["SPRINT", "GATE", "MILESTONE", "GO LIVE"] }
     ]
+  },
+  {
+    title: "RCA Leadership & Values",
+    groups: [
+      { name: "RCA Execs (last names)", color: "a", items: ["KORACH", "MACRAE", "HENEFELD", "PENNINGTON"] },
+      { name: "Exec Titles", color: "b", items: ["CEO", "COO", "CFO", "CIO"] },
+      { name: "RCA Core Values", color: "c", items: ["INTEGRITY", "SAFETY", "CRAFTSMANSHIP", "TEAMWORK"] },
+      { name: "RCA Slogan Words", color: "d", items: ["SAFE", "COMPETENT", "RESPONSIVE", "PREMIER"] }
+    ]
+  },
+  {
+    title: "Systems in the Field",
+    groups: [
+      { name: "Oracle HCM Handles", color: "a", items: ["CORE HR", "PAYROLL", "TIME OFF", "SELF-SERVICE"] },
+      { name: "NetSuite Handles", color: "b", items: ["JOB COST", "AP", "INVOICING", "REPORTING"] },
+      { name: "Miter Handles", color: "c", items: ["CLOCK IN", "JOB CODE", "APPROVE", "SUBMIT"] },
+      { name: "Testing Phases", color: "d", items: ["FUT", "UAT", "SIT", "CRP"] }
+    ]
+  },
+  {
+    title: "The Change Leader Network",
+    groups: [
+      { name: "Push (out to teams)", color: "a", items: ["TALKING POINTS", "FLYERS", "HUDDLE MSG", "HEADS UP"] },
+      { name: "Pull (back to project)", color: "b", items: ["QUESTIONS", "PUSHBACK", "WHAT WORKS", "CHECK-IN"] },
+      { name: "Field-Friendly Channels", color: "c", items: ["TOOLBOX TALK", "TEXT THREAD", "BREAKROOM", "WALK-THE-SITE"] },
+      { name: "CLN Reps Are Called…", color: "d", items: ["ADVOCATES", "CHAMPIONS", "TRUSTED VOICES", "SUCCESS SQUAD"] }
+    ]
+  },
+  {
+    title: "Kevin Callans & Crowther",
+    groups: [
+      { name: "Kevin's Facts", color: "a", items: ["AGE 14", "PRESIDENT", "10 SERVICE LINES", "PODCAST GUEST"] },
+      { name: "Crowther Facts", color: "b", items: ["SW FLORIDA", "783 PEOPLE", "PILOT WAVE", "LARGEST BU"] },
+      { name: "Field Training Values", color: "c", items: ["SHOULDER-TO-SHOULDER", "HANDS ON", "BILINGUAL", "PEER LED"] },
+      { name: "What Doesn't Work", color: "d", items: ["VIDEO ONLY", "EMAIL BLAST", "VIRTUAL", "WRITTEN PDF"] }
+    ]
+  },
+  {
+    title: "Business Readiness Pillars",
+    groups: [
+      { name: "The 5 BR Pillars", color: "a", items: ["COMMS", "ENGAGEMENT", "LEADERSHIP", "FIELD TRAINING"] },
+      { name: "Field Trainer Network", color: "b", items: ["FOREMAN", "BILINGUAL", "RESPECTED", "TRUSTED"] },
+      { name: "Manager Self-Service Actions", color: "c", items: ["PROMOTE", "TRANSFER", "TERMINATE", "APPROVE TIME"] },
+      { name: "Cutover Steps", color: "d", items: ["FREEZE", "MIGRATE", "VALIDATE", "GO LIVE"] }
+    ]
+  },
+  {
+    title: "Around the RCA Family",
+    groups: [
+      { name: "RCA Services", color: "a", items: ["REPAIRS", "REROOFING", "RESTORATION", "NEW BUILD"] },
+      { name: "Roofing Materials", color: "b", items: ["SHINGLE", "TILE", "METAL", "SLATE"] },
+      { name: "Building Markets", color: "c", items: ["COMMERCIAL", "INDUSTRIAL", "RESIDENTIAL", "INSTITUTIONAL"] },
+      { name: "RCA Parent & HQ", color: "d", items: ["FIRSTSERVICE", "NASDAQ FSV", "ATLANTA GA", "270 CARPENTER"] }
+    ]
+  },
+  {
+    title: "BUs by Home State",
+    groups: [
+      { name: "Georgia BUs", color: "a", items: ["BONE DRY", "PITTMAN WALLER", "RCA HQ", "FSO"] },
+      { name: "Florida BUs", color: "b", items: ["CROWTHER", "HAMILTON", "SPRINGER-PETERSON", "SPACE COAST"] },
+      { name: "Western BUs", color: "c", items: ["AAA", "TORC", "FRONT RANGE", "DYNAMIC NATIONAL"] },
+      { name: "Other US BUs", color: "d", items: ["DAVCO", "ROOF-TECH", "DEER PARK", "WEATHERSHIELD"] }
+    ]
+  },
+  {
+    title: "BU Founding Eras",
+    groups: [
+      { name: "Founded pre-1980", color: "a", items: ["PITTMAN WALLER 1926", "HAMILTON 1968", "TORC 1960S", "OLDEST"] },
+      { name: "Founded 1980s-90s", color: "b", items: ["FRONT RANGE 1987", "ROOF-TECH 1991", "A-1 1996", "GROWTH ERA"] },
+      { name: "Founded 2000s", color: "c", items: ["BONE DRY 2003", "DAVCO 2008", "WEATHERSHIELD 2009", "MODERN"] },
+      { name: "Founder Names", color: "d", items: ["BILL LUEBBERT", "BRANDON FLOWERS", "DAN DAVIS", "KENIS HAMILTON"] }
+    ]
+  },
+  {
+    title: "Miter in Detail",
+    groups: [
+      { name: "Miter User Actions", color: "a", items: ["CLOCK IN", "SELECT JOB", "SUBMIT TIME", "GET APPROVAL"] },
+      { name: "Foreman Actions", color: "b", items: ["REVIEW TIME", "APPROVE CREW", "FIX ERRORS", "SIGN OFF"] },
+      { name: "Data Flow", color: "c", items: ["NETSUITE → MITER", "MITER → OTL", "OTL → PAYROLL", "PAY → NETSUITE"] },
+      { name: "What Miter Replaces", color: "d", items: ["PAPER TIMESHEETS", "PHONE CALLS", "TEXT MESSAGES", "MEMORY"] }
+    ]
+  },
+  {
+    title: "Testing & Cutover",
+    groups: [
+      { name: "Testing Phases", color: "a", items: ["FUT", "UAT", "SIT", "CRP"] },
+      { name: "Cutover Steps", color: "b", items: ["SYSTEM FREEZE", "DATA MIGRATION", "RECONCILE", "ACCESS PROVISION"] },
+      { name: "Post Go-Live", color: "c", items: ["HYPERCARE", "STABILIZE", "ISSUE LOG", "SUPPORT DESK"] },
+      { name: "Sign-off Owners", color: "d", items: ["BU SME", "TOWER LEAD", "PROJECT PM", "EXEC SPONSOR"] }
+    ]
+  },
+  {
+    title: "The Gold Processes",
+    groups: [
+      { name: "Manager-Owned", color: "a", items: ["PROMOTIONS", "TRANSFERS", "TERMINATIONS", "HIRING"] },
+      { name: "Employee Self-Service", color: "b", items: ["ADDRESS", "W-4", "DIRECT DEPOSIT", "CONTACTS"] },
+      { name: "Cross-Tower", color: "c", items: ["PIECEWORK", "RETRO CHANGES", "SALARY", "EXPENSES"] },
+      { name: "Time & Absence", color: "d", items: ["CLOCK IN", "PTO REQUEST", "ABSENCE APPROVE", "SOX CHECK"] }
+    ]
+  },
+  {
+    title: "Communications Toolkit",
+    groups: [
+      { name: "Field-Friendly Comms", color: "a", items: ["TOOLBOX TALK", "BREAKROOM POSTER", "TEXT THREAD", "TRUCK FLYER"] },
+      { name: "Office-Friendly Comms", color: "b", items: ["EMAIL", "TOWN HALL", "NEWSLETTER", "TEAMS POST"] },
+      { name: "Two-Way Comms", color: "c", items: ["Q&A SESSION", "PULSE SURVEY", "OPEN OFFICE HOURS", "DROP-IN"] },
+      { name: "Leader Comms", color: "d", items: ["EXEC BRIEF", "GM PLAYBOOK", "STEERCO", "1:1"] }
+    ]
+  },
+  {
+    title: "Languages of the Field",
+    groups: [
+      { name: "Common Languages", color: "a", items: ["ENGLISH", "SPANISH", "CREOLE", "BILINGUAL"] },
+      { name: "Field Facts", color: "b", items: ["63% HISPANIC", "1400 CREWS", "75% CROWTHER", "NO EMAIL"] },
+      { name: "Training That Works", color: "c", items: ["HANDS ON", "SHOULDER-TO-SHOULDER", "PEER LED", "IN LANGUAGE"] },
+      { name: "OSHA Requires", color: "d", items: ["WORKER'S LANGUAGE", "SAFETY DEMO", "COMPREHENSION", "RETRAIN AS NEEDED"] }
+    ]
+  },
+  {
+    title: "Roles in the Rollout",
+    groups: [
+      { name: "Executive Layer", color: "a", items: ["CEO", "CFO", "CIO", "COO"] },
+      { name: "Local BU Layer", color: "b", items: ["BU PRESIDENT", "BU GM", "BU HR", "BU CONTROLLER"] },
+      { name: "Field Layer", color: "c", items: ["FOREMAN", "CREW LEAD", "SUPER", "LABORER"] },
+      { name: "Change Layer", color: "d", items: ["CLN REP", "FTN MEMBER", "SME", "SPONSOR"] }
+    ]
+  },
+  {
+    title: "Signals of Readiness",
+    groups: [
+      { name: "Green Lights", color: "a", items: ["HIGH USAGE", "LOW ERRORS", "FEW TICKETS", "LEADER VISIBLE"] },
+      { name: "Yellow Lights", color: "b", items: ["MIXED FEEDBACK", "SOME RESISTANCE", "TRAINING GAPS", "LATE COMMS"] },
+      { name: "Red Lights", color: "c", items: ["MISSED PAY", "SILENT LEADERS", "BROKEN INTEGRATIONS", "MASS OPT-OUT"] },
+      { name: "What We Measure", color: "d", items: ["ADOPTION %", "ERROR RATE", "TICKET COUNT", "PULSE SCORE"] }
+    ]
+  },
+  {
+    title: "Corporate Structure",
+    groups: [
+      { name: "RCA Corporate", color: "a", items: ["ATLANTA HQ", "FSO", "270 CARPENTER", "GA 30328"] },
+      { name: "Parent Company", color: "b", items: ["FIRSTSERVICE", "NASDAQ FSV", "TSX FSV", "PUBLIC"] },
+      { name: "By The Numbers", color: "c", items: ["13 ACQUIRED", "26 BRANCHES", "16 BUs", "100+ LEGACY"] },
+      { name: "RCA Positioning", color: "d", items: ["PREMIER", "AMERICA'S", "ROOFING", "CONTRACTORS"] }
+    ]
+  },
+  {
+    title: "Roof Anatomy",
+    groups: [
+      { name: "Top of Roof", color: "a", items: ["RIDGE", "PEAK", "CAP", "CROWN"] },
+      { name: "Edges", color: "b", items: ["EAVES", "SOFFIT", "FASCIA", "DRIP EDGE"] },
+      { name: "Flashings", color: "c", items: ["APRON", "STEP", "VALLEY", "COUNTER"] },
+      { name: "Underneath", color: "d", items: ["DECK", "UNDERLAYMENT", "TRUSS", "RAFTER"] }
+    ]
+  },
+  {
+    title: "Storms & Seasons",
+    groups: [
+      { name: "Storm Threats", color: "a", items: ["HAIL", "WIND", "ICE", "LIGHTNING"] },
+      { name: "Roofing Seasons", color: "b", items: ["SPRING", "SUMMER", "FALL", "STORM SEASON"] },
+      { name: "Storm Response", color: "c", items: ["TARP", "INSPECT", "ESTIMATE", "DISPATCH"] },
+      { name: "Weather Impacts on OOR", color: "d", items: ["PRIORITY SHIFT", "CREW REDIRECT", "SCHEDULE CHANGE", "COMMS PIVOT"] }
+    ]
+  },
+  {
+    title: "The Four Pillars in Action",
+    groups: [
+      { name: "System Ready", color: "a", items: ["CONFIGURATION", "INTEGRATION", "DATA MIGRATION", "TESTING"] },
+      { name: "People Ready", color: "b", items: ["TRAINING", "COMMS", "ENGAGEMENT", "LEADERSHIP"] },
+      { name: "Process Ready", color: "c", items: ["GOLD MAPS", "APPROVAL FLOW", "ROLES DEFINED", "HANDOFFS"] },
+      { name: "Field Ready", color: "d", items: ["FTN NAMED", "BILINGUAL ASSETS", "DEVICES ISSUED", "HOTLINE UP"] }
+    ]
+  },
+  {
+    title: "Adoption Metrics",
+    groups: [
+      { name: "Usage Signals", color: "a", items: ["LOGIN COUNT", "TIME IN APP", "TXN COUNT", "MOBILE PLAYS"] },
+      { name: "Error Signals", color: "b", items: ["FAILED SUBMIT", "REJECT RATE", "REWORK", "MISSING FIELDS"] },
+      { name: "Support Signals", color: "c", items: ["TICKETS", "CALL VOLUME", "REPEAT ISSUES", "ESCALATIONS"] },
+      { name: "Sentiment Signals", color: "d", items: ["PULSE SURVEY", "NPS", "FEEDBACK QUOTES", "CHURN"] }
+    ]
+  },
+  {
+    title: "Meet the RCA Companies",
+    groups: [
+      { name: "Family Owned Legacy", color: "a", items: ["PITTMAN WALLER", "HAMILTON", "DEER PARK", "TORC"] },
+      { name: "Modern Era Acquisitions", color: "b", items: ["BONE DRY", "WEATHERSHIELD", "DAVCO", "SPRINGER-PETERSON"] },
+      { name: "National Reach", color: "c", items: ["AAA", "DYNAMIC NATIONAL", "FRONT RANGE", "A-1"] },
+      { name: "Pilot / HQ", color: "d", items: ["FSO", "BDI", "ROOF-TECH", "CROWTHER"] }
+    ]
+  },
+  {
+    title: "Payroll & HR Deep Dive",
+    groups: [
+      { name: "Payroll Actions", color: "a", items: ["RUN PAYROLL", "CALCULATE", "REPORT", "PAY OUT"] },
+      { name: "HCM Modules", color: "b", items: ["CORE HR", "PAYROLL", "OTL", "ABSENCE"] },
+      { name: "MSS Actions", color: "c", items: ["PROMOTE", "TRANSFER", "TERMINATE", "APPROVE TIME"] },
+      { name: "Payroll Types", color: "d", items: ["REGULAR", "CERTIFIED", "UNION", "PIECEWORK"] }
+    ]
+  },
+  {
+    title: "Field Trainer Network",
+    groups: [
+      { name: "FTN Traits", color: "a", items: ["BILINGUAL", "RESPECTED", "ON JOBSITE", "PHONE-FLUENT"] },
+      { name: "FTN Delivers", color: "b", items: ["MITER HOW-TO", "TOOLBOX SCRIPTS", "1:1 COACHING", "HUDDLE UPDATES"] },
+      { name: "FTN Supported By", color: "c", items: ["JOB AIDS", "SHORT VIDEOS", "HOTLINE", "CERTIFICATION"] },
+      { name: "Not the FTN", color: "d", items: ["CLN", "TRAIN THE TRAINER", "IT SUPPORT", "CENTRAL PAYROLL"] }
+    ]
+  },
+  {
+    title: "Around the Program",
+    groups: [
+      { name: "Program Cadence", color: "a", items: ["STEERCO", "STAND UP", "WAVE SYNC", "TOWER MEET"] },
+      { name: "Program Governance", color: "b", items: ["GO NO-GO", "GATE REVIEW", "RETRO", "SIGN OFF"] },
+      { name: "Program Documents", color: "c", items: ["CHARTER", "PLAN", "PLAYBOOK", "RACI"] },
+      { name: "Program Vocabulary", color: "d", items: ["SCOPE", "MILESTONE", "DEPENDENCY", "RISK"] }
+    ]
+  },
+  {
+    title: "Emojis on the Roof",
+    groups: [
+      { name: "Roofing Tools", color: "a", items: ["🔨 HAMMER", "🪜 LADDER", "🧰 TOOLBOX", "🔧 WRENCH"] },
+      { name: "Weather", color: "b", items: ["🌩️ STORM", "❄️ SNOW", "💨 WIND", "☀️ SUN"] },
+      { name: "Buildings", color: "c", items: ["🏠 HOUSE", "🏢 OFFICE", "🏭 FACTORY", "🏫 SCHOOL"] },
+      { name: "Systems", color: "d", items: ["💻 COMPUTER", "📱 PHONE", "☁️ CLOUD", "⚡ POWER"] }
+    ]
+  },
+  {
+    title: "ADKAR in Depth",
+    groups: [
+      { name: "Awareness Signals", color: "a", items: ["HEAR NEWS", "READ EMAIL", "SEE POSTER", "HEAR MENTION"] },
+      { name: "Desire Signals", color: "b", items: ["ASK QUESTION", "RAISE HAND", "VOLUNTEER", "OPT IN"] },
+      { name: "Knowledge Signals", color: "c", items: ["ATTEND TRAINING", "TAKE NOTES", "PRACTICE", "CERTIFY"] },
+      { name: "Ability Signals", color: "d", items: ["DO SOLO", "HELP OTHERS", "EXPLAIN IT", "TROUBLESHOOT"] }
+    ]
+  },
+  {
+    title: "Program Cadence",
+    groups: [
+      { name: "Daily Touchpoints", color: "a", items: ["STAND UP", "STATUS", "SLACK CHECK", "TICKET REVIEW"] },
+      { name: "Weekly Touchpoints", color: "b", items: ["TOWER SYNC", "BR MEETING", "TRAIN REVIEW", "PULSE"] },
+      { name: "Monthly Touchpoints", color: "c", items: ["STEERCO", "NEWSLETTER", "TOWN HALL", "GATE REVIEW"] },
+      { name: "Wave Cadence", color: "d", items: ["KICKOFF", "GO NO-GO", "GO LIVE", "HYPERCARE"] }
+    ]
+  },
+  {
+    title: "What Success Looks Like",
+    groups: [
+      { name: "Per BU", color: "a", items: ["ON TIME", "TRAINED", "SIGNED OFF", "USING SYSTEM"] },
+      { name: "Per Role", color: "b", items: ["CONFIDENT", "PRODUCTIVE", "LOW ERRORS", "SUPPORTED"] },
+      { name: "Per Wave", color: "c", items: ["ALL BUs LIVE", "LESSONS CAPTURED", "PLAYBOOK UPDATED", "TEAM RESTED"] },
+      { name: "Per Audience", color: "d", items: ["EXEC INFORMED", "MANAGER READY", "USER TRAINED", "FIELD ADOPTED"] }
+    ]
+  },
+  {
+    title: "Payroll Complexity",
+    groups: [
+      { name: "Payroll Types", color: "a", items: ["REGULAR", "CERTIFIED", "UNION", "PIECEWORK"] },
+      { name: "Payroll Steps", color: "b", items: ["COLLECT TIME", "CALCULATE", "APPROVE", "PAY OUT"] },
+      { name: "Payroll Risks", color: "c", items: ["MISSED PAY", "WRONG RATE", "TAX ERROR", "COMPLIANCE"] },
+      { name: "Payroll Docs", color: "d", items: ["PAY STUB", "W-2", "1099", "TIME REPORT"] }
+    ]
+  },
+  {
+    title: "Cross-Tower Collaboration",
+    groups: [
+      { name: "HR + Finance Handoffs", color: "a", items: ["PAY DATA", "JOB CODES", "COST CENTERS", "APPROVALS"] },
+      { name: "Miter + NetSuite Flow", color: "b", items: ["JOB SETUP", "TIME CAPTURE", "COST ROLLUP", "MARGIN VIEW"] },
+      { name: "Process + BR", color: "c", items: ["GOLD MAP", "TRAIN DECK", "JOB AID", "SIM PRACTICE"] },
+      { name: "Comms + Training", color: "d", items: ["WHY MSG", "HOW GUIDE", "REINFORCE", "CELEBRATE"] }
+    ]
+  },
+  {
+    title: "Learning Assets",
+    groups: [
+      { name: "Quick Assets", color: "a", items: ["JOB AID", "QUICK CARD", "TIP SHEET", "FAQ"] },
+      { name: "Deep Assets", color: "b", items: ["FULL COURSE", "USER GUIDE", "SIM LAB", "WORKBOOK"] },
+      { name: "Video Assets", color: "c", items: ["DEMO CLIP", "HOW-TO", "OVERVIEW", "TESTIMONIAL"] },
+      { name: "Live Assets", color: "d", items: ["ILT", "WEBINAR", "SHADOW", "OFFICE HOURS"] }
+    ]
+  },
+  {
+    title: "Change Resistance Signs",
+    groups: [
+      { name: "Confusion", color: "a", items: ["'WHAT NOW?'", "MISSED STEP", "REPEATED Q", "BLANK STARE"] },
+      { name: "Fear", color: "b", items: ["'MY JOB?'", "AVOIDANCE", "SILENCE", "OVER-QUESTION"] },
+      { name: "Overload", color: "c", items: ["MISSED TRAIN", "LATE FILE", "TIRED EYES", "SHORT ANSWERS"] },
+      { name: "Distrust", color: "d", items: ["EYE ROLL", "'LAST TIME'", "PUSHBACK", "MALICIOUS COMPLY"] }
+    ]
+  },
+  {
+    title: "Field Rhythm",
+    groups: [
+      { name: "Start of Day", color: "a", items: ["SAFETY HUDDLE", "TOOLBOX TALK", "CLOCK IN", "SITE WALK"] },
+      { name: "During the Job", color: "b", items: ["EXECUTE", "SUPERVISE", "TRACK TIME", "REPORT ISSUES"] },
+      { name: "End of Day", color: "c", items: ["CLEAN UP", "SUBMIT TIME", "FOREMAN APPROVE", "DEBRIEF"] },
+      { name: "Between Jobs", color: "d", items: ["TRAVEL", "FUEL", "LOAD OUT", "PLAN NEXT"] }
+    ]
+  },
+  {
+    title: "First Week Post Go-Live",
+    groups: [
+      { name: "Hypercare Actions", color: "a", items: ["MONITOR", "TRIAGE", "RESOLVE", "COMMUNICATE"] },
+      { name: "Common Tickets", color: "b", items: ["ACCESS ISSUE", "MISSING DATA", "APPROVAL STUCK", "PAY QUESTION"] },
+      { name: "Who's On Deck", color: "c", items: ["BR TEAM", "TOWER LEAD", "IT SUPPORT", "SME BENCH"] },
+      { name: "Signals", color: "d", items: ["TICKET COUNT", "USAGE STATS", "PULSE SCORE", "PAY ACCURACY"] }
+    ]
+  },
+  {
+    title: "OOR One-Liners",
+    groups: [
+      { name: "The BR Mantras", color: "a", items: ["BUILD ONCE", "DEPLOY MANY", "MEET WHERE THEY ARE", "WHY BEFORE HOW"] },
+      { name: "OOR Positioning", color: "b", items: ["ONE PLATFORM", "EVERY BU", "REAL TIME", "STRONGER FOUNDATION"] },
+      { name: "Culture Anchors", color: "c", items: ["SAFETY", "TEAMWORK", "CRAFTSMANSHIP", "INTEGRITY"] },
+      { name: "Field Truths", color: "d", items: ["SUPERVISOR TRUSTED", "BILINGUAL WORKS", "SHOULDER TO SHOULDER", "PAPER OUT"] }
+    ]
+  },
+  {
+    title: "Glossary — ERP Vocab 101",
+    groups: [
+      { name: "Setup & Design", color: "a", items: ["CONFIGURATION", "CUSTOMIZATION", "SANDBOX", "BLUEPRINT"] },
+      { name: "Data Terms", color: "b", items: ["MASTER DATA", "DATA CONVERSION", "DATA INTEGRATION", "DATA GOVERNANCE"] },
+      { name: "People Terms", color: "c", items: ["END USER", "SUPER USER", "STAKEHOLDER", "PROJECT TEAM"] },
+      { name: "Process Terms", color: "d", items: ["WORKFLOW", "PROCESS MAPPING", "FIT-GAP", "BUSINESS PROCESS"] }
+    ]
+  },
+  {
+    title: "Estimate to Invoice",
+    groups: [
+      { name: "Bid Stage", color: "a", items: ["BID", "ESTIMATE", "PROPOSAL", "TAKEOFF"] },
+      { name: "In-Progress Work", color: "b", items: ["WIP", "BACKLOG", "RETAINAGE", "GAIN/FADE"] },
+      { name: "Financial Docs", color: "c", items: ["AIA BILLING", "PURCHASE ORDER", "SCHEDULE OF VALUES", "BILL OF LADING"] },
+      { name: "Change Events", color: "d", items: ["CHANGE ORDER", "COST ADJUSTMENT", "RFI", "T&M"] }
+    ]
+  },
+  {
+    title: "RAID Log & Testing",
+    groups: [
+      { name: "The RAID Log", color: "a", items: ["RISKS", "ASSUMPTIONS", "ISSUES", "DECISIONS"] },
+      { name: "Testing Types", color: "b", items: ["UNIT TEST", "SIT", "UAT", "CRP"] },
+      { name: "Training Types", color: "c", items: ["END USER", "FIELD", "TRAIN THE TRAINER", "FUNCTIONAL"] },
+      { name: "Being Replaced", color: "d", items: ["WORKMAX", "PAYCOR", "PAPER TIMESHEETS", "SPREADSHEETS"] }
+    ]
+  },
+  {
+    title: "Two Networks, One Roof",
+    groups: [
+      { name: "About the CLN", color: "a", items: ["WHOLE PROGRAM", "ALL YEAR", "MONTHLY", "TWO-WAY COMMS"] },
+      { name: "About the FTN", color: "b", items: ["MITER ONLY", "AT GO-LIVE", "ON DEVICE", "IN LANGUAGE"] },
+      { name: "CLN Rep Job", color: "c", items: ["BUILD TRUST", "CARRY CHANGE", "PUSH UPDATES", "PULL FEEDBACK"] },
+      { name: "FTN Member Job", color: "d", items: ["TEACH CREWS", "TOOLBOX TALK", "HANDS-ON", "PEER LED"] }
+    ]
+  },
+  {
+    title: "Job Costing Vocabulary",
+    groups: [
+      { name: "Cost Types", color: "a", items: ["BURDEN", "BUDGET", "FORECAST", "ACTUALS"] },
+      { name: "Codes", color: "b", items: ["COST CODE", "PHASE CODE", "ACCOUNT CODE", "JOB CODE"] },
+      { name: "Job Categories", color: "c", items: ["RESIDENTIAL", "COMMERCIAL", "INDUSTRIAL", "PREVENTIVE MAINT"] },
+      { name: "Job Stages", color: "d", items: ["BID", "PROGRESS", "PUNCH LIST", "CLOSE OUT"] }
+    ]
+  },
+  {
+    title: "Legacy vs. OOR",
+    groups: [
+      { name: "Legacy in the Field", color: "a", items: ["PAPER TIMESHEETS", "WORKMAX", "PHONE CALLS", "MEMORY"] },
+      { name: "Legacy in the Office", color: "b", items: ["SPREADSHEETS", "LOCAL ERP", "MANUAL ENTRY", "DISCONNECTED"] },
+      { name: "New OOR Systems", color: "c", items: ["MITER", "NETSUITE", "ORACLE HCM", "APPFICIENCY"] },
+      { name: "New Habits", color: "d", items: ["SELF-SERVICE", "REAL-TIME", "ONE SOURCE", "INTEGRATED"] }
+    ]
+  },
+  {
+    title: "Standard vs. BU-Specific (Glossary)",
+    groups: [
+      { name: "Standard Term", color: "a", items: ["PROGRESS BILLING", "WORK ON HAND", "CLOSEOUT LIST", "OUT-OF-SCOPE"] },
+      { name: "BU Alternate", color: "b", items: ["AIA BILLING", "BACKLOG", "PUNCH LIST", "EXTRA WORK"] },
+      { name: "Standard Term", color: "c", items: ["SCHEDULING", "SALES PROSPECT", "COST ADJUSTMENT", "PAYMENT BOND"] },
+      { name: "BU Alternate", color: "d", items: ["DISPATCHING", "LEAD", "WIP ADJUSTMENT", "BOND"] }
+    ]
+  },
+  {
+    title: "Change Management Toolkit",
+    groups: [
+      { name: "Governance", color: "a", items: ["STEERING COMMITTEE", "PMO", "PROJECT GOVERNANCE", "ROLES & PERMISSIONS"] },
+      { name: "Measure & Manage", color: "b", items: ["KPI", "READINESS ASSESSMENT", "USER ADOPTION", "REPORTING"] },
+      { name: "Plan Docs", color: "c", items: ["TRAINING PLAN", "TRANSITION PLAN", "COMMS PLAN", "PROJECT PLAN"] },
+      { name: "Change Concepts", color: "d", items: ["CHANGE MANAGEMENT", "OCM", "SPONSORSHIP", "CHAMPION"] }
+    ]
   }
 ];
 
@@ -1142,8 +1553,8 @@ const TRIVIA_PUZZLES = [
         answer: 2
       },
       {
-        q: "Which BU is the primary Pilot?",
-        opts: ["Crowther", "WeatherShield", "Hamilton", "A1 Roofing"],
+        q: "Which BU is in Wave 1 alongside FSO?",
+        opts: ["Crowther", "WeatherShield", "Hamilton", "A-1"],
         answer: 1
       },
       {
@@ -1187,18 +1598,18 @@ const TRIVIA_PUZZLES = [
     title: "Timeline & Team",
     questions: [
       {
-        q: "When is the Pilot Miter go-live?",
-        opts: ["Aug 14, 2026", "Sept 14, 2026", "Oct 1, 2026", "Nov 1, 2026"],
+        q: "When is the Wave 1 Miter (Field Time Capture) go-live for FSO & WeatherShield?",
+        opts: ["Aug 14, 2026", "September 21, 2026", "Oct 1, 2026", "Nov 1, 2026"],
         answer: 1
       },
       {
-        q: "When is the Pilot Oracle HCM go-live?",
-        opts: ["Sept 1, 2026", "Sept 14, 2026", "Oct 1, 2026", "Nov 1, 2026"],
+        q: "When is Oracle HCM go-live for Wave 1 (FSO, WeatherShield) and Wave 2 (Roof-Tech)?",
+        opts: ["Sept 1, 2026", "Sept 21, 2026", "October 1, 2026", "November 1, 2026"],
         answer: 2
       },
       {
-        q: "Who is the OCM Tower Lead?",
-        opts: ["Randall Vaughan", "Jennifer Oriel", "Dan Grisan", "Toni Hanson"],
+        q: "What does OCM stand for in the OOR CLN Glossary?",
+        opts: ["Operational Change Method", "Organizational Change Management", "Optimal Company Model", "Operations & Contract Management"],
         answer: 1
       },
       {
@@ -1217,28 +1628,28 @@ const TRIVIA_PUZZLES = [
     title: "Waves & Deployment",
     questions: [
       {
-        q: "When is Wave 1 go-live?",
-        opts: ["Oct 2026", "Dec 2026 – Jan 2027", "March 2027", "July 2027"],
+        q: "How many deployment waves are in the OOR roadmap?",
+        opts: ["3", "4", "5", "7"],
+        answer: 2
+      },
+      {
+        q: "Which BUs are in Wave 1?",
+        opts: ["FSO and WeatherShield", "Roof-Tech alone", "Crowther, Springer-Peterson, Hamilton", "All 16 BUs"],
+        answer: 0
+      },
+      {
+        q: "Which BU is Wave 2 (per the CLN Toolkit)?",
+        opts: ["FSO", "Roof-Tech", "Crowther", "WeatherShield"],
         answer: 1
       },
       {
-        q: "When is Wave 2 go-live?",
-        opts: ["Jan 2027", "March 2027", "May 2027", "July 2027"],
+        q: "Wave 3 Miter go-live is:",
+        opts: ["November 2026", "December 21, 2026", "January 4, 2027", "March 2027"],
         answer: 1
       },
       {
-        q: "When is Wave 3 go-live?",
-        opts: ["April 2027", "July 2027", "Sept 2027", "Jan 2028"],
-        answer: 1
-      },
-      {
-        q: "How many Wave 1 BUs are planned?",
-        opts: ["2", "3 (Crowther, Springer-Peterson, Hamilton)", "5", "8"],
-        answer: 1
-      },
-      {
-        q: "Starting when do Finance and HR go live at the same time per BU?",
-        opts: ["Pilot", "2027", "Wave 3 only", "Never — always staggered"],
+        q: "From Wave 3 on, Finance and HR:",
+        opts: ["Are staggered by 30 days", "Both go live at the same time per BU", "Only Finance goes live", "Only HR goes live"],
         answer: 1
       }
     ]
@@ -1277,23 +1688,23 @@ const TRIVIA_PUZZLES = [
     title: "Business Units",
     questions: [
       {
-        q: "Which BUs are in the Pilot wave?",
-        opts: ["WeatherShield, FSO, Rooftech", "Crowther, Hamilton, Rooftech", "WeatherShield only", "All Wave 1 BUs"],
+        q: "Waves 1 and 2 combined cover which BUs (per the CLN Toolkit)?",
+        opts: ["FSO, WeatherShield, Roof-Tech", "Crowther, Hamilton, Roof-Tech", "WeatherShield only", "All 16 BUs"],
         answer: 0
       },
       {
-        q: "Which of these is a Wave 1 BU?",
-        opts: ["A1 Roofing", "Springer-Peterson", "BDI", "Front Range"],
+        q: "Which BU is in Wave 1 (per the OOR CLN Toolkit)?",
+        opts: ["A-1", "WeatherShield", "BDI", "Front Range"],
         answer: 1
       },
       {
-        q: "Which of these is a Wave 3 BU?",
-        opts: ["Crowther", "Bone Dry", "Dynamic", "WeatherShield"],
-        answer: 2
+        q: "Which BU has President Kevin Callans?",
+        opts: ["Bone Dry", "Crowther Roofing & Cooling", "Dynamic National", "WeatherShield"],
+        answer: 1
       },
       {
-        q: "What kind of company is RCA (parent structure)?",
-        opts: ["Public company IPO", "PE-backed multi-brand rollup", "Family owned", "Franchise"],
+        q: "Who owns Roofing Corp of America?",
+        opts: ["It is privately held by founders", "FirstService Corporation (NASDAQ: FSV)", "Berkshire Hathaway", "A pure PE fund with no public parent"],
         answer: 1
       },
       {
@@ -1437,18 +1848,1278 @@ const TRIVIA_PUZZLES = [
         answer: 1
       },
       {
-        q: "What happened to the internal change leader before Levata joined?",
-        opts: ["Retired", "Was hired away", "Position was lost prior to Levata's engagement", "Still in role"],
+        q: "How many legacy systems does OOR consolidate?",
+        opts: ["10+", "50+", "100+", "500+"],
         answer: 2
       },
       {
-        q: "Who leads the OCM Tower?",
-        opts: ["Larry Pennington", "Dawn Dominick", "Jennifer Oriel", "Randall Vaughan"],
+        q: "Approximately how many total employees does OOR touch?",
+        opts: ["~500", "~1,000", "~2,000", "~5,000"],
         answer: 2
       },
       {
-        q: "What are the estimated engagement end dates?",
-        opts: ["Dec 2026", "Aug 2027", "Dec 2027", "May 2028"],
+        q: "What does 'ERP' stand for?",
+        opts: ["Enterprise Resource Planning", "Employee Roster Platform", "Executive Reporting Program", "Enhanced Roofing Process"],
+        answer: 0
+      }
+    ]
+  },
+  {
+    title: "RCA Leadership",
+    questions: [
+      {
+        q: "Who is RCA's CEO?",
+        opts: ["Larry Pennington", "Randy Korach", "Doug MacRae", "Kevin Callans"],
+        answer: 1
+      },
+      {
+        q: "Who is RCA's COO?",
+        opts: ["Mark Henefeld", "Doug MacRae", "Larry Pennington", "Randy Korach"],
+        answer: 1
+      },
+      {
+        q: "Who is RCA's CFO?",
+        opts: ["Randy Korach", "Doug MacRae", "Mark Henefeld", "Larry Pennington"],
+        answer: 2
+      },
+      {
+        q: "How many years of industry experience does CEO Randy Korach have?",
+        opts: ["5", "10", "15", "25+"],
+        answer: 3
+      },
+      {
+        q: "Who is RCA's CIO?",
+        opts: ["Randy Korach", "Mark Henefeld", "Doug MacRae", "Larry Pennington"],
+        answer: 3
+      }
+    ]
+  },
+  {
+    title: "RCA Core Values",
+    questions: [
+      {
+        q: "How many RCA core values are there?",
+        opts: ["3", "5", "6", "8"],
+        answer: 2
+      },
+      {
+        q: "Which is NOT one of RCA's core values?",
+        opts: ["Integrity", "Innovation", "Craftsmanship", "Teamwork"],
+        answer: 1
+      },
+      {
+        q: "RCA's three-word slogan is:",
+        opts: ["SAFE, COMPETENT, RESPONSIVE", "FAST, CHEAP, QUALITY", "TRUST, GRIT, GROW", "ONE ROOF, ONE TEAM"],
+        answer: 0
+      },
+      {
+        q: "Which core value pairs with continuous learning and getting better every day?",
+        opts: ["Safety", "Continuous Improvement", "Teamwork", "Responsiveness"],
+        answer: 1
+      },
+      {
+        q: "RCA's positioning line is: 'Home for America's Premier ___'",
+        opts: ["Home Builders", "Roofing Contractors", "Sheet Metal Shops", "Property Managers"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Kevin Callans Podcast",
+    questions: [
+      {
+        q: "Kevin Callans is president of which BU?",
+        opts: ["Bone Dry", "Crowther Roofing & Cooling", "Roof-Tech", "WeatherShield"],
+        answer: 1
+      },
+      {
+        q: "At what age did Kevin Callans start working at Crowther?",
+        opts: ["10", "14", "18", "25"],
+        answer: 1
+      },
+      {
+        q: "How many service lines does Crowther operate?",
+        opts: ["3", "5", "10", "20"],
+        answer: 2
+      },
+      {
+        q: "About how many paper timesheets did Crowther process daily before Miter?",
+        opts: ["50", "200", "700+", "10,000"],
+        answer: 2
+      },
+      {
+        q: "Kevin's training advice for the field is:",
+        opts: ["Send a video", "Shoulder-to-shoulder, not virtual", "Mandatory e-learning", "Read the manual"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "The Field Workforce",
+    questions: [
+      {
+        q: "About how many field workers will use Miter across RCA?",
+        opts: ["~400", "~800", "~1,400", "~3,000"],
+        answer: 2
+      },
+      {
+        q: "About what % of the US roofing trade is Hispanic?",
+        opts: ["25%", "45%", "63%", "85%"],
+        answer: 2
+      },
+      {
+        q: "At Crowther, roughly what % of field workers cannot use English materials?",
+        opts: ["25%", "50%", "75%+", "Under 10%"],
+        answer: 2
+      },
+      {
+        q: "Miter is designed to run on which device?",
+        opts: ["Desktop only", "Company laptop", "Personal phone", "Kiosk terminal"],
+        answer: 2
+      },
+      {
+        q: "The Field Trainer Network delivers training how?",
+        opts: ["Recorded webinars", "Written manuals mailed out", "Shoulder-to-shoulder, hands-on, bilingual", "Classroom lecture"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Change Leader Network (CLN)",
+    questions: [
+      {
+        q: "Roughly how much time do CLN reps commit each month?",
+        opts: ["30 minutes", "2-4 hours", "10-15 hours", "Full-time"],
+        answer: 1
+      },
+      {
+        q: "The two directions CLN info flows are:",
+        opts: ["Up and Down", "Push and Pull", "Sync and Async", "Formal and Informal"],
+        answer: 1
+      },
+      {
+        q: "What's the OOR email address for CLN questions?",
+        opts: ["support@rca.com", "OneRoof@roofingcorp.com", "changeleader@rca.com", "helpdesk@oor.com"],
+        answer: 1
+      },
+      {
+        q: "CLN reps are NOT expected to:",
+        opts: ["Listen and relay feedback", "Champion the change", "Know all the answers or fix the systems", "Be a friendly first point of contact"],
+        answer: 2
+      },
+      {
+        q: "Which is a suggested CLN outreach tactic for reaching field crews?",
+        opts: ["Group email with attachments", "Toolbox talks and text threads", "Formal town hall", "Print newsletter"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "BU Founders & Histories",
+    questions: [
+      {
+        q: "Which BU is the oldest (founded 1926)?",
+        opts: ["Bone Dry", "Hamilton Roofing", "Pittman Waller", "Roof-Tech"],
+        answer: 2
+      },
+      {
+        q: "Who founded WeatherShield in 2009?",
+        opts: ["Dan Davis", "Brandon Flowers", "Bill Luebbert", "Kenis Hamilton"],
+        answer: 1
+      },
+      {
+        q: "In what city is Roof-Tech headquartered?",
+        opts: ["Charlotte", "New Orleans", "Athens", "Las Vegas"],
+        answer: 1
+      },
+      {
+        q: "Hamilton Roofing has served which region since 1968?",
+        opts: ["Florida's Space Coast", "New England", "Pacific Northwest", "Rocky Mountains"],
+        answer: 0
+      },
+      {
+        q: "Which BU is based in Greeley, Colorado?",
+        opts: ["Davco", "Deer Park", "Front Range Roofing Systems", "AAA"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "The Integration Chain",
+    questions: [
+      {
+        q: "Job data flows FROM which system INTO Miter?",
+        opts: ["Oracle HCM", "NetSuite", "Appficiency", "Paycor"],
+        answer: 1
+      },
+      {
+        q: "Miter timecards are pulled into Oracle OTL how often?",
+        opts: ["Daily", "Every Monday (weekly)", "Bi-weekly", "Monthly"],
+        answer: 1
+      },
+      {
+        q: "After Payroll runs, the payroll journal entry flows back to:",
+        opts: ["Miter", "Oracle Recruiting", "NetSuite (for Finance)", "SharePoint"],
+        answer: 2
+      },
+      {
+        q: "A bad field time entry becomes a ___ error in Finance:",
+        opts: ["Attendance", "Job costing", "Compliance only", "None — the systems are separate"],
+        answer: 1
+      },
+      {
+        q: "Approximately how many managers are tagged for Manager Self-Service?",
+        opts: ["50", "150", "385", "1,400"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Roofing 101",
+    questions: [
+      {
+        q: "Which is NOT one of RCA's four service categories?",
+        opts: ["Roof Repairs and Maintenance", "Reroofing", "Building Restoration", "Landscaping"],
+        answer: 3
+      },
+      {
+        q: "The triangular frame structure of a pitched roof is a:",
+        opts: ["Truss", "Beam", "Column", "Girder"],
+        answer: 0
+      },
+      {
+        q: "Which is a common commercial roofing material?",
+        opts: ["Concrete pavers", "Metal", "Grass", "Foam blocks"],
+        answer: 1
+      },
+      {
+        q: "The overhanging edges of a roof are called:",
+        opts: ["Ridges", "Eaves", "Valleys", "Peaks"],
+        answer: 1
+      },
+      {
+        q: "'Pitch' refers to what characteristic of a roof?",
+        opts: ["Color", "Material", "Slope or angle", "Age"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Manager Self-Service (MSS)",
+    questions: [
+      {
+        q: "Which is NOT a Manager Self-Service action in Oracle HCM?",
+        opts: ["Initiate promotions", "Approve time and absence", "Change corporate tax rates", "Enter and submit terminations"],
+        answer: 2
+      },
+      {
+        q: "What's the primary risk of MSS beyond system training?",
+        opts: ["Managers might forget passwords", "Handling sensitive employee data without HR-policy grounding", "Slow logins", "Extra emails"],
+        answer: 1
+      },
+      {
+        q: "Roughly how many managers are tagged for MSS in the Working Log?",
+        opts: ["100", "250", "385", "1,000"],
+        answer: 2
+      },
+      {
+        q: "In the middle-ground MSS model, who typically approves BEFORE a manager acts in Oracle?",
+        opts: ["Central IT", "HR (outside the system)", "The employee", "Payroll only"],
+        answer: 1
+      },
+      {
+        q: "Which sensitive data category do MSS managers handle?",
+        opts: ["Vendor contracts", "Pay, personal info, EEO-sensitive fields", "Insurance filings", "Tax returns"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Field Trainer Network (FTN)",
+    questions: [
+      {
+        q: "What does FTN stand for?",
+        opts: ["Field Time Network", "Field Trainer Network", "Full Timing Network", "Foreman Training Network"],
+        answer: 1
+      },
+      {
+        q: "How large is the target FTN member pool?",
+        opts: ["10-25", "50-150", "500+", "1,400"],
+        answer: 1
+      },
+      {
+        q: "Which language mix does the FTN aim to cover?",
+        opts: ["English only", "English + Spanish (Creole at Crowther)", "Spanish only", "Any European language"],
+        answer: 1
+      },
+      {
+        q: "Which is NOT part of the FTN's role?",
+        opts: ["Deliver Miter training at the jobsite", "Run supervisor toolbox-talk scripts", "Configure the system in Oracle", "Reinforce through the first pay cycles"],
+        answer: 2
+      },
+      {
+        q: "The FTN and CLN are:",
+        opts: ["The same team", "Distinct but linked; some people may sit in both", "Competing groups", "One replaces the other"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "OOR by the Numbers",
+    questions: [
+      {
+        q: "How many BUs are in the OOR program (per Randy Town Hall)?",
+        opts: ["10", "13", "16", "25"],
+        answer: 2
+      },
+      {
+        q: "How many go-lives are planned across all waves?",
+        opts: ["5", "10", "15", "30"],
+        answer: 2
+      },
+      {
+        q: "How many legacy systems are being consolidated?",
+        opts: ["10+", "50+", "100+", "1000+"],
+        answer: 2
+      },
+      {
+        q: "Approximately how many total employees are affected?",
+        opts: ["~500", "~1,000", "~2,000", "~5,000"],
+        answer: 2
+      },
+      {
+        q: "How many branch locations does RCA operate publicly?",
+        opts: ["13", "20", "26", "50"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Wave 3 & Beyond",
+    questions: [
+      {
+        q: "When does Wave 3 go live?",
+        opts: ["January ~1, 2027", "March 2027", "July 2027", "October 2026"],
+        answer: 0
+      },
+      {
+        q: "When does Wave 4 go live?",
+        opts: ["January 2027", "April ~1, 2027", "July 2027", "October 2027"],
+        answer: 1
+      },
+      {
+        q: "When does Wave 5 go live?",
+        opts: ["April 2027", "July ~1, 2027", "October 2027", "January 2028"],
+        answer: 1
+      },
+      {
+        q: "Starting with Wave 3, Finance and HR go live:",
+        opts: ["Staggered 30 days apart", "Simultaneously per BU", "Only Finance goes live", "Only HR goes live"],
+        answer: 1
+      },
+      {
+        q: "By what date will all current RCA BUs be live on OOR systems?",
+        opts: ["End of December 2026", "End of March 2027", "End of July 2027", "End of 2027"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Testing Phases",
+    questions: [
+      {
+        q: "What does FUT stand for?",
+        opts: ["Final User Test", "Functional Unit Testing", "Full Uptime Test", "Fast User Trial"],
+        answer: 1
+      },
+      {
+        q: "What does UAT stand for?",
+        opts: ["User Acceptance Testing", "Universal Access Trial", "Update Approval Track", "User Access Terminal"],
+        answer: 0
+      },
+      {
+        q: "What does SIT confirm?",
+        opts: ["Speed of servers", "Single-user actions", "Data flows and controls end-to-end across systems", "SharePoint access rights"],
+        answer: 2
+      },
+      {
+        q: "What does CRP stand for?",
+        opts: ["Change Rollout Plan", "Conference Room Pilot", "Configuration Review Process", "Certified Roofing Program"],
+        answer: 1
+      },
+      {
+        q: "System freeze and cutover begin roughly how long before go-live?",
+        opts: ["1 day", "3 days", "1 week", "1 month"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Communications Strategy",
+    questions: [
+      {
+        q: "For field crews without email, which comms channel works best?",
+        opts: ["Group emails", "Toolbox talks and text threads", "Corporate intranet", "Formal PDFs"],
+        answer: 1
+      },
+      {
+        q: "In OCM, 'awareness' comes before:",
+        opts: ["Adoption", "The 'how' details", "Testing", "Go-live"],
+        answer: 1
+      },
+      {
+        q: "About what % of non-desk workers are satisfied with written corporate comms?",
+        opts: ["9-10%", "25-30%", "50%", "80%+"],
+        answer: 0
+      },
+      {
+        q: "The strongest single readiness signal is:",
+        opts: ["Email open rates", "Visible leader engagement", "Training test scores", "Number of comms sent"],
+        answer: 1
+      },
+      {
+        q: "Contact for OOR CLN questions is:",
+        opts: ["helpdesk@rca.com", "OneRoof@roofingcorp.com", "support@firstservice.com", "onboarding@rca.com"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Kevin Callans Part 2",
+    questions: [
+      {
+        q: "What kind of past tech rollout did Kevin reference as a lesson?",
+        opts: ["Email systems", "GPS vehicle cameras", "HR onboarding", "CRM"],
+        answer: 1
+      },
+      {
+        q: "Kevin's advice on cleaning up processes vs. adopting new systems:",
+        opts: ["Adopt first, clean up later", "Clean up internal processes BEFORE adopting new systems", "Do them together always", "Ignore process, focus on tech"],
+        answer: 1
+      },
+      {
+        q: "Kevin says field teams should get real-time information via:",
+        opts: ["Weekly summary emails", "Their hands (in-the-moment)", "Manager phone calls", "Monthly reports"],
+        answer: 1
+      },
+      {
+        q: "The best incentive Kevin mentions for keeping people engaged:",
+        opts: ["Bonuses at year end", "Incentivizing performance in real time", "Quiet meetings", "Ranking systems"],
+        answer: 1
+      },
+      {
+        q: "Kevin's lightning-round advice for other BU presidents starting the OOR journey?",
+        opts: ["Wait and watch", "Get involved early", "Delegate to IT", "Skip the training"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "BU Trivia Round 1",
+    questions: [
+      {
+        q: "Which BU is headquartered in Athens, GA?",
+        opts: ["Pittman Waller", "Bone Dry Roofing", "Hamilton", "Deer Park"],
+        answer: 1
+      },
+      {
+        q: "Roof-Tech is based in which Louisiana city?",
+        opts: ["Baton Rouge", "New Orleans", "Shreveport", "Lafayette"],
+        answer: 1
+      },
+      {
+        q: "AAA Roofing & Waterproofing operates in which region?",
+        opts: ["Northeast", "Southeast", "Western US (CA + ID)", "Midwest"],
+        answer: 2
+      },
+      {
+        q: "TORC (The Original Roofing Company) is based in:",
+        opts: ["Reno", "Phoenix", "Las Vegas", "Salt Lake City"],
+        answer: 2
+      },
+      {
+        q: "Which is Deer Park Roofing's service region?",
+        opts: ["Texas + Oklahoma", "Southern Ohio + Northern Kentucky", "Florida", "New England"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "BU Trivia Round 2",
+    questions: [
+      {
+        q: "Springer-Peterson serves which region?",
+        opts: ["Georgia", "Florida", "Ohio", "Colorado"],
+        answer: 1
+      },
+      {
+        q: "Which BU covers South and Southwest Florida?",
+        opts: ["Hamilton", "Crowther Roofing & Cooling", "Springer-Peterson", "Bone Dry"],
+        answer: 1
+      },
+      {
+        q: "Front Range Roofing Systems (FRRS) is based in:",
+        opts: ["Greeley, CO", "Denver, CO", "Cheyenne, WY", "Boulder, CO"],
+        answer: 0
+      },
+      {
+        q: "Davco Roofing & Sheet Metal is headquartered in:",
+        opts: ["Raleigh, NC", "Charlotte, NC", "Charleston, SC", "Atlanta, GA"],
+        answer: 1
+      },
+      {
+        q: "Which BU is 'A name trusted since 1996'?",
+        opts: ["A-1 All American Roofing", "AAA Roofing", "Bone Dry", "Front Range"],
+        answer: 0
+      }
+    ]
+  },
+  {
+    title: "Deployment Play-by-Play",
+    questions: [
+      {
+        q: "In Wave 1, Finance (NetSuite) goes live for FSO and WeatherShield in:",
+        opts: ["Early September 2026", "Late September 2026", "October 2026", "November 2026"],
+        answer: 0
+      },
+      {
+        q: "In Wave 1, Miter goes live in:",
+        opts: ["Early September", "Late September (~Sept 21)", "Early October", "Early November"],
+        answer: 1
+      },
+      {
+        q: "Roof-Tech's Finance go-live is:",
+        opts: ["September 1, 2026", "October 1, 2026", "Early November 2026", "January 2027"],
+        answer: 2
+      },
+      {
+        q: "During the system freeze week, what is NOT allowed?",
+        opts: ["Configuration or data changes", "Training", "Reading emails", "Attending meetings"],
+        answer: 0
+      },
+      {
+        q: "System freeze is designed to ensure:",
+        opts: ["Training reflects the exact system going live", "Only executives can log in", "Nothing breaks after go-live", "No one accesses their timecard"],
+        answer: 0
+      }
+    ]
+  },
+  {
+    title: "Business Readiness Fundamentals",
+    questions: [
+      {
+        q: "The two big BR questions are: Is the system ready, and ___?",
+        opts: ["Is the code deployed", "Are the people ready to use it", "Is the vendor paid", "Are laws respected"],
+        answer: 1
+      },
+      {
+        q: "How many BR pillars/levers does the team work across?",
+        opts: ["3", "4", "5", "7"],
+        answer: 2
+      },
+      {
+        q: "Which is NOT one of the 5 BR pillars?",
+        opts: ["Communications", "Employee Engagement", "IT Security", "Training"],
+        answer: 2
+      },
+      {
+        q: "The BR team's mantra is:",
+        opts: ["Move fast, break things", "Build once, deploy many", "Ship it and see", "Custom for every BU"],
+        answer: 1
+      },
+      {
+        q: "Business Readiness is a form of what enterprise discipline?",
+        opts: ["Project Management", "Organizational Change Management (OCM)", "IT Ops", "Vendor Management"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Storm-Driven Business",
+    questions: [
+      {
+        q: "Roofing priorities can shift overnight because of:",
+        opts: ["Executive whim", "Storm events", "Software bugs", "Team meetings"],
+        answer: 1
+      },
+      {
+        q: "The most sensitive time window for scheduling is:",
+        opts: ["Payroll days only", "First 5-7 days of each month (close)", "Fridays", "Mondays"],
+        answer: 1
+      },
+      {
+        q: "During a major storm, OOR training and comms should:",
+        opts: ["Continue on schedule", "Flex — the day job comes first", "Escalate to execs", "Auto-cancel forever"],
+        answer: 1
+      },
+      {
+        q: "What are the most common storm threats to a roof?",
+        opts: ["Sun and heat only", "Hail, wind, and ice", "Rain only", "Snow only"],
+        answer: 1
+      },
+      {
+        q: "The Change Leader Network guide says the commitment 'flexes with project needs and':",
+        opts: ["Vacation schedules", "'Your day job comes first when a storm hits'", "Whoever is on call", "The stock price"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Milestones So Far",
+    questions: [
+      {
+        q: "The 'Gold Processes' publication was a milestone from which tower?",
+        opts: ["Business Readiness", "Process Transformation", "Finance", "Validation"],
+        answer: 1
+      },
+      {
+        q: "FUT for NetSuite was completed for which BUs first?",
+        opts: ["Crowther, Hamilton, Springer-Peterson", "FSO, WeatherShield, Roof-Tech", "All 16 BUs", "AAA only"],
+        answer: 1
+      },
+      {
+        q: "Which module did RCA license from NetSuite for future planning?",
+        opts: ["Payroll Analytics", "NetSuite Planning & Budgeting", "Field Service", "Advanced Manufacturing"],
+        answer: 1
+      },
+      {
+        q: "Additional test environments were secured to support what?",
+        opts: ["Marketing website", "Ongoing testing work", "Employee onboarding", "External customers"],
+        answer: 1
+      },
+      {
+        q: "Post-go-live long-term support options are being scoped with third-party firms in which activity?",
+        opts: ["Advertising", "Run support evaluation", "M&A", "IPO planning"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Comms Language & Tone",
+    questions: [
+      {
+        q: "OOR messaging should meet audiences 'where they are' — meaning:",
+        opts: ["Assume all know ERP terms", "Plain language, especially for field", "Consulting jargon is fine", "Only in English"],
+        answer: 1
+      },
+      {
+        q: "The BR team says 'the ___ before the how':",
+        opts: ["When", "Why", "Who", "What"],
+        answer: 1
+      },
+      {
+        q: "Anita Good's role covers what?",
+        opts: ["Field training", "Communications (sending)", "Finance analysis", "Testing"],
+        answer: 1
+      },
+      {
+        q: "The BR team recommends messages be built specifically for which audience?",
+        opts: ["Only executives", "Every audience — leaders to field crews", "Only external", "Only Payroll"],
+        answer: 1
+      },
+      {
+        q: "Which is a good subject line for a field-crew huddle message?",
+        opts: ["Enterprise integration architecture Q3", "Two-minute update on clocking in", "Fiscal-year OKR alignment", "Governance model refresh"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "The Hispanic Workforce Reality",
+    questions: [
+      {
+        q: "OSHA training must be delivered in a language the worker:",
+        opts: ["Reads best", "Understands", "Sees on the poster", "Speaks at home"],
+        answer: 1
+      },
+      {
+        q: "At Crowther, how many workers speak only Creole (approx)?",
+        opts: ["Zero", "Around 20", "150", "Half the workforce"],
+        answer: 1
+      },
+      {
+        q: "What's the biggest reach challenge for field-crew comms?",
+        opts: ["Time zones", "Many have no work email", "The mail is slow", "IT permissions"],
+        answer: 1
+      },
+      {
+        q: "Which learning mode measurably outperforms for Latino construction crews?",
+        opts: ["Video-only e-learning", "Peer-led, bilingual, hands-on", "Written PDF manuals", "Long town halls"],
+        answer: 1
+      },
+      {
+        q: "What language is added on top of Spanish specifically for Crowther?",
+        opts: ["Portuguese", "French", "Creole", "Italian"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Adoption & Metrics",
+    questions: [
+      {
+        q: "Which is NOT a typical adoption signal?",
+        opts: ["Login count and time in app", "Error rate and rework", "The color of the building", "Support ticket volume"],
+        answer: 2
+      },
+      {
+        q: "A 'red light' readiness signal would be:",
+        opts: ["Low ticket volume", "Missed payroll or silent leaders", "Leaders visibly modeling", "High usage rates"],
+        answer: 1
+      },
+      {
+        q: "Business Readiness is measured at:",
+        opts: ["Program only", "BU and role level", "Only exec level", "Only tower level"],
+        answer: 1
+      },
+      {
+        q: "The go/no-go decision should include which input?",
+        opts: ["Weather", "Business readiness signals", "Executive mood only", "Vendor availability"],
+        answer: 1
+      },
+      {
+        q: "Post-go-live, what's the most useful readiness sensor?",
+        opts: ["Number of emails sent", "Ticket volume + error rate + pulse", "Login screen color", "Meeting attendance"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Roof Anatomy",
+    questions: [
+      {
+        q: "The top ridge of a roof is called the:",
+        opts: ["Eaves", "Ridge or peak", "Valley", "Fascia"],
+        answer: 1
+      },
+      {
+        q: "The V-shaped intersection between two sloped roof sections is a:",
+        opts: ["Ridge", "Peak", "Valley", "Rake"],
+        answer: 2
+      },
+      {
+        q: "Fascia sits along the:",
+        opts: ["Roof ridge", "Roof edge (below the eaves)", "Chimney", "Underlayment"],
+        answer: 1
+      },
+      {
+        q: "Underlayment sits directly:",
+        opts: ["On top of shingles", "Between the deck and shingles", "Below the deck", "Around the chimney only"],
+        answer: 1
+      },
+      {
+        q: "'Flashing' is used at:",
+        opts: ["Doors", "Roof penetrations and transitions", "Windows only", "Solar panels"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Team Culture & 'One Team'",
+    questions: [
+      {
+        q: "RCA's 'one team' expectation for consultants is:",
+        opts: ["Fly in monthly", "Embedded, not consulting from a distance", "Remote only", "Written reports only"],
+        answer: 1
+      },
+      {
+        q: "The BR team frames themselves as the 'framing crew for':",
+        opts: ["Buildings", "Change", "The website", "Finance reports"],
+        answer: 1
+      },
+      {
+        q: "Every solid roof starts with:",
+        opts: ["A big crew", "Solid prep work", "Sunny weather", "The best shingles"],
+        answer: 1
+      },
+      {
+        q: "The BR team's approach to plans is:",
+        opts: ["Handed down finished", "Built alongside each BU", "Copy last year's", "Skip planning"],
+        answer: 1
+      },
+      {
+        q: "Field training that works is:",
+        opts: ["Shoulder-to-shoulder", "Take-home reading", "Virtual-only", "Ad hoc"],
+        answer: 0
+      }
+    ]
+  },
+  {
+    title: "ADKAR Deep Dive",
+    questions: [
+      {
+        q: "What does the 'A' in ADKAR stand for (first step)?",
+        opts: ["Adoption", "Awareness", "Action", "Accountability"],
+        answer: 1
+      },
+      {
+        q: "Which ADKAR step focuses on giving people the tools and training?",
+        opts: ["Awareness", "Desire", "Knowledge", "Reinforcement"],
+        answer: 2
+      },
+      {
+        q: "Ability is different from Knowledge because:",
+        opts: ["They're the same", "Ability = doing; Knowledge = knowing", "Ability comes first", "Ability requires software"],
+        answer: 1
+      },
+      {
+        q: "The 'R' in ADKAR stands for:",
+        opts: ["Rest", "Rollout", "Reinforcement", "Readiness"],
+        answer: 2
+      },
+      {
+        q: "'Reinforcement' after go-live can include:",
+        opts: ["Recognition, coaching, and adjustments", "Ignoring feedback", "Retraining everyone", "Firing resisters"],
+        answer: 0
+      }
+    ]
+  },
+  {
+    title: "Payroll Types",
+    questions: [
+      {
+        q: "Piecework payroll pays workers based on:",
+        opts: ["Hours worked", "Units completed or work output", "Union contract only", "Salary"],
+        answer: 1
+      },
+      {
+        q: "Certified payroll is common in what type of project?",
+        opts: ["Residential remodels", "Public / prevailing-wage projects", "Small repairs", "Retail"],
+        answer: 1
+      },
+      {
+        q: "Union payroll typically requires:",
+        opts: ["No paperwork", "Specific rates, benefits, and reporting per CBA", "Only annual reporting", "Cash payments"],
+        answer: 1
+      },
+      {
+        q: "Which system handles pay calculation at RCA post-OOR?",
+        opts: ["Miter", "Oracle HCM Payroll", "NetSuite", "SharePoint"],
+        answer: 1
+      },
+      {
+        q: "Errors in field time entries affect which downstream system?",
+        opts: ["Only Miter", "Both Payroll and Finance (job costing)", "Only marketing dashboards", "None"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Post Go-Live Hypercare",
+    questions: [
+      {
+        q: "What is 'hypercare' in an ERP rollout?",
+        opts: ["Extra vacation for the team", "A period of intensive support right after go-live", "Backup data restore", "A training module"],
+        answer: 1
+      },
+      {
+        q: "During hypercare, what is elevated?",
+        opts: ["Only executive attention", "Support coverage, monitoring, and triage", "Vendor licenses", "Office hours only"],
+        answer: 1
+      },
+      {
+        q: "Which is a common hypercare metric?",
+        opts: ["Coffee consumed", "Ticket volume trending down", "Number of PowerPoints made", "Length of standup"],
+        answer: 1
+      },
+      {
+        q: "When does hypercare typically end?",
+        opts: ["When you feel like it", "When defined stability signals are met", "After 6 hours", "Never"],
+        answer: 1
+      },
+      {
+        q: "Who staffs the front line of hypercare?",
+        opts: ["Only the vendor", "BR team, Tower Leads, SMEs, IT support", "Marketing", "External auditors"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "OOR Systems Trivia",
+    questions: [
+      {
+        q: "Which system is Oracle's HR/Payroll cloud offering?",
+        opts: ["NetSuite", "Oracle HCM Cloud", "Miter", "Appficiency"],
+        answer: 1
+      },
+      {
+        q: "Appficiency extends NetSuite for what industry?",
+        opts: ["Healthcare", "Construction (Material Job Costing)", "Retail", "Manufacturing only"],
+        answer: 1
+      },
+      {
+        q: "How do employees update their W-4 in OOR?",
+        opts: ["Paper form to HR", "Employee Self-Service in Oracle HCM", "Text their manager", "SharePoint"],
+        answer: 1
+      },
+      {
+        q: "Which OOR system is designed to run primarily on a phone?",
+        opts: ["Oracle HCM", "NetSuite", "Miter", "Appficiency"],
+        answer: 2
+      },
+      {
+        q: "What benefit does real-time job costing bring to a foreman?",
+        opts: ["Nothing new", "Margin visibility while the job is running", "More paperwork", "Longer meetings"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Change Management Fundamentals",
+    questions: [
+      {
+        q: "The strongest single predictor of successful change is:",
+        opts: ["Software quality", "Visible, engaged sponsorship", "Team size", "Budget"],
+        answer: 1
+      },
+      {
+        q: "Which of these is a form of resistance?",
+        opts: ["Asking clarifying questions", "'That's how we've always done it'", "Attending training", "Taking notes"],
+        answer: 1
+      },
+      {
+        q: "Champions are most useful because they:",
+        opts: ["Approve all budgets", "Cut through the corporate-comms bounce with peers", "Manage tickets", "Write documentation"],
+        answer: 1
+      },
+      {
+        q: "The best time to address concerns is:",
+        opts: ["After go-live", "Early, before they harden", "Only if escalated", "Never"],
+        answer: 1
+      },
+      {
+        q: "OCM stands for:",
+        opts: ["Operational Change Method", "Organizational Change Management", "Optimal Company Model", "Ongoing Client Management"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Field Time Behavior",
+    questions: [
+      {
+        q: "What is 'time capture' at its simplest?",
+        opts: ["Auditing timesheets", "Recording when work starts, stops, and to what job", "Just clocking in", "Only paper timesheets"],
+        answer: 1
+      },
+      {
+        q: "In Miter, who approves crew time entries?",
+        opts: ["The employee", "The foreman or crew lead", "Corporate HR", "Nobody"],
+        answer: 1
+      },
+      {
+        q: "What happens if time is submitted without a job code?",
+        opts: ["It passes through fine", "It can't be costed to the right job — creates a Finance error", "Payroll ignores it", "The employee gets paid double"],
+        answer: 1
+      },
+      {
+        q: "Miter helps eliminate what daily task at Crowther?",
+        opts: ["Coffee runs", "700+ paper timesheets", "Vehicle inspections", "Safety meetings"],
+        answer: 1
+      },
+      {
+        q: "Job codes flow into Miter from which system?",
+        opts: ["Excel", "NetSuite", "Oracle HCM", "SharePoint"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "OOR Governance",
+    questions: [
+      {
+        q: "What is 'SteerCo' short for?",
+        opts: ["Steer Complete", "Steering Committee", "Steady Course", "Stakeholder Coalition"],
+        answer: 1
+      },
+      {
+        q: "A 'go/no-go' decision typically happens:",
+        opts: ["Weekly", "Right before each wave go-live", "Only after go-live", "Monthly at random"],
+        answer: 1
+      },
+      {
+        q: "'Gate reviews' are used to:",
+        opts: ["Test the building's front gate", "Check readiness before moving between major phases", "Approve marketing", "Review payroll"],
+        answer: 1
+      },
+      {
+        q: "Which document typically owns the who-does-what?",
+        opts: ["Excel spreadsheet", "RACI matrix", "Post-it notes", "Vendor SLA"],
+        answer: 1
+      },
+      {
+        q: "The Tower Lead is responsible for:",
+        opts: ["The whole program", "Their specific workstream's design, delivery, and sign-off", "Only meetings", "External comms"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Just for Fun: RCA Facts",
+    questions: [
+      {
+        q: "What's on RCA's website tagline banner?",
+        opts: ["FAST, EASY, CHEAP", "SAFE, COMPETENT, RESPONSIVE", "BUILT, PROVEN, TRUSTED", "ONE ROOF, ONE TEAM"],
+        answer: 1
+      },
+      {
+        q: "RCA was recognized in what industry ranking?",
+        opts: ["Fortune 100", "Roofing Contractor Top 100", "Forbes 400", "None"],
+        answer: 1
+      },
+      {
+        q: "RCA's phone number area code is:",
+        opts: ["212 (NYC)", "404 (Atlanta)", "312 (Chicago)", "213 (LA)"],
+        answer: 1
+      },
+      {
+        q: "The general RCA email is:",
+        opts: ["hi@rca.net", "info@roofingcorp.com", "contact@firstservice.com", "help@rca.org"],
+        answer: 1
+      },
+      {
+        q: "How many US states does RCA operate branches across (public: 26 locations)?",
+        opts: ["1", "Multiple states across the US", "Only Georgia", "Only Florida"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "The Business Readiness Playbook",
+    questions: [
+      {
+        q: "The BR team is 'model-agnostic' about Manager Self-Service — meaning:",
+        opts: ["We only support one model", "We flex to whatever each BU decides", "We ignore MSS", "We force adoption"],
+        answer: 1
+      },
+      {
+        q: "Which is a two-way information flow BR designs?",
+        opts: ["One-way emails", "Push updates + pull feedback", "Only escalations", "Silent operation"],
+        answer: 1
+      },
+      {
+        q: "The BR team develops HR/Payroll comms; who sends them?",
+        opts: ["The IT team", "Anita Good on the OOR Comms team", "Any random person", "Nobody"],
+        answer: 1
+      },
+      {
+        q: "The build-once-deploy-many principle means:",
+        opts: ["Custom every time", "Build assets once in Pilot, reuse for future waves", "Only build for Wave 3", "Skip the Pilot"],
+        answer: 1
+      },
+      {
+        q: "The BR team's confidence rating in their approach is stated as:",
+        opts: ["100% always", "About 75%, with softer areas flagged", "10%", "Zero — they wing it"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "OOR Culture Quotes",
+    questions: [
+      {
+        q: "Complete the BR mantra: 'Build once, ___ many.'",
+        opts: ["Test", "Deploy", "Report", "Deliver"],
+        answer: 1
+      },
+      {
+        q: "The BR team's approach to plain language is:",
+        opts: ["Consultant-speak preferred", "'Meet people where they are' — plain, direct", "Use only jargon", "Only English"],
+        answer: 1
+      },
+      {
+        q: "OOR asks the whole team to:",
+        opts: ["Ignore concerns", "Stay engaged, ask questions, embrace the change", "Wait for orders", "Only push back"],
+        answer: 1
+      },
+      {
+        q: "OOR is described as the ___ initiative in RCA's history:",
+        opts: ["Smallest", "Largest", "Fastest", "Cheapest"],
+        answer: 1
+      },
+      {
+        q: "According to the July 2026 newsletter, the two big questions of BR are:",
+        opts: ["Is it fast? Is it cheap?", "Is the system ready? Are the people ready to use it?", "Is IT staffed? Is HR staffed?", "Is comms ready? Is training ready?"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "OneRoof Glossary — Approved Terms",
+    questions: [
+      {
+        q: "What does the OOR Glossary define as 'A centralized system where everyone uses the same up-to-date data'?",
+        opts: ["Master Data", "One Source of Truth", "Cloud ERP", "Real-Time Data"],
+        answer: 1
+      },
+      {
+        q: "'A safe test environment where changes or training can happen without affecting real data' is a:",
+        opts: ["Sandbox", "Backlog", "Sandbox environment blueprint", "Prod system"],
+        answer: 0
+      },
+      {
+        q: "'A trained user who provides support and training to others' is a:",
+        opts: ["Super User", "End User", "Stakeholder", "Project Team member"],
+        answer: 0
+      },
+      {
+        q: "What does RAID stand for in the OOR project tracking log?",
+        opts: ["Reports, Actions, Insights, Data", "Risks, Assumptions, Issues, Decisions", "Roles, Access, IDs, Data", "Reviews, Approvals, Issues, Deployments"],
+        answer: 1
+      },
+      {
+        q: "'A method of identifying where current processes fit the ERP system and where gaps exist' is called:",
+        opts: ["Requirements Gathering", "Fit-Gap Analysis", "Process Mapping", "Readiness Assessment"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Roofing / Construction Terminology",
+    questions: [
+      {
+        q: "In OOR's standardized glossary, 'Backlog' means:",
+        opts: ["Overdue tickets", "Work on Hand (contracted work)", "Slow WiFi", "Pipeline of leads"],
+        answer: 1
+      },
+      {
+        q: "AIA Billing is the standard term for:",
+        opts: ["A specific vendor", "Progress billing on construction jobs", "Late invoices", "Bond payments"],
+        answer: 1
+      },
+      {
+        q: "'Retainage' is:",
+        opts: ["Employee retention", "% held back until the job is complete", "Retail sales tax", "A discount"],
+        answer: 1
+      },
+      {
+        q: "In job costing, 'Gain/Fade' refers to:",
+        opts: ["Sun exposure", "Positive or negative variance in project profit", "Signal loss", "Employee turnover"],
+        answer: 1
+      },
+      {
+        q: "'T&M' billing means:",
+        opts: ["Trucks & Materials", "Time and Materials", "Timing and Metrics", "Total & Multiple"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "The CLN Toolkit Deep Dive",
+    questions: [
+      {
+        q: "Per the CLN Toolkit, Miter replaces what field-time system by name?",
+        opts: ["Kronos", "WorkMax", "ADP Time", "Excel"],
+        answer: 1
+      },
+      {
+        q: "Per the CLN Toolkit, which testing tools does the project team use?",
+        opts: ["Jira and Zephyr", "TestRail and Postman", "Selenium and TestFlight", "Only Excel"],
+        answer: 0
+      },
+      {
+        q: "The CLN Glossary defines this as 'Confirming data and processes flow correctly between connected systems':",
+        opts: ["Unit Testing", "System Integration Testing (SIT)", "User Acceptance Testing (UAT)", "Field Testing"],
+        answer: 1
+      },
+      {
+        q: "Per CLN Toolkit, which training type is delivered 'shoulder-to-shoulder, often in person on the jobsite'?",
+        opts: ["End User Training", "Field Training", "Functional Training", "Executive Training"],
+        answer: 1
+      },
+      {
+        q: "The CLN Toolkit says the current legacy landscape is 'nearly ___ different setups' across BUs:",
+        opts: ["5", "10", "20", "50"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "CLN vs. FTN",
+    questions: [
+      {
+        q: "The Change Leader Network (CLN) covers:",
+        opts: ["Only Miter", "The whole program, all three systems", "Only Oracle HCM", "Only NetSuite"],
+        answer: 1
+      },
+      {
+        q: "The Field Trainer Network (FTN) reaches:",
+        opts: ["Executives only", "The crews, on the device, in their own language", "The finance team only", "Vendors"],
+        answer: 1
+      },
+      {
+        q: "CLN commitment cadence is:",
+        opts: ["One-time meeting", "Standing, every month, all year", "Daily", "Never"],
+        answer: 1
+      },
+      {
+        q: "FTN activity is:",
+        opts: ["Year-round", "A short burst right around each field go-live", "Only before Wave 1", "Once a quarter"],
+        answer: 1
+      },
+      {
+        q: "Can a person be in both CLN and FTN?",
+        opts: ["Never", "Yes — some people may sit in both", "Only if HR approves", "Only in Wave 1"],
+        answer: 1
+      }
+    ]
+  },
+  {
+    title: "Wave-by-Wave Dates (CLN Toolkit)",
+    questions: [
+      {
+        q: "Wave 1 (FSO + WeatherShield) NetSuite go-live is:",
+        opts: ["Sept 1, 2026", "Sept 21, 2026", "Oct 1, 2026", "Nov 1, 2026"],
+        answer: 0
+      },
+      {
+        q: "Wave 2 (Roof-Tech) Miter go-live is:",
+        opts: ["Sept 21, 2026", "October 26, 2026", "November 1, 2026", "January 4, 2027"],
+        answer: 1
+      },
+      {
+        q: "Wave 3 Miter go-live is:",
+        opts: ["November 2026", "December 21, 2026", "January 4, 2027", "March 2027"],
+        answer: 1
+      },
+      {
+        q: "Wave 4 Finance and HR both go live on:",
+        opts: ["March 22, 2027", "April 1, 2027", "May 15, 2027", "July 1, 2027"],
+        answer: 1
+      },
+      {
+        q: "Wave 5 Finance and HR both go live on:",
+        opts: ["April 1, 2027", "June 21, 2027", "July 1, 2027", "August 15, 2027"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "BU-Specific Alternate Terms",
+    questions: [
+      {
+        q: "What's the WeatherShield / DP alternate for 'Progress Billing'?",
+        opts: ["Retainage", "AIA Billing", "SOV", "T&M"],
+        answer: 1
+      },
+      {
+        q: "'Dispatching' at RCA standard means:",
+        opts: ["Firing an employee", "Scheduling / assigning crews to jobs", "Emergency response", "Truck maintenance"],
+        answer: 1
+      },
+      {
+        q: "'Punch List' is standardized as:",
+        opts: ["Boxing gear", "Closeout List", "Employee timesheet", "Vendor list"],
+        answer: 1
+      },
+      {
+        q: "At DAVCO, 'Purchase Order' is called:",
+        opts: ["Contract", "Procurement", "Bill", "Estimate"],
+        answer: 1
+      },
+      {
+        q: "'Bond' in the RCA glossary refers to:",
+        opts: ["A financial security (savings)", "Payment & performance guarantee on a contract", "Employee tenure", "Insurance policy"],
         answer: 1
       }
     ]
