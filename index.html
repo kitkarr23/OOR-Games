@@ -1058,7 +1058,7 @@ const CONNECTIONS_PUZZLES = [
     title: "Acronyms & Tools",
     groups: [
       { name: "OOR Acronyms", color: "a", items: ["HCM", "MJC", "FTC", "OCM"] },
-      { name: "SI & Software Partners", color: "b", items: ["IBM", "RSM", "ORACLE", "APPFICIENCY"] },
+      { name: "Cloud Software in OOR", color: "b", items: ["ORACLE HCM", "NETSUITE", "MITER", "APPFICIENCY"] },
       { name: "OCM Deliverables", color: "c", items: ["TRAINING", "COMMS", "READINESS", "IMPACT"] },
       { name: "Roofing Trades", color: "d", items: ["FOREMAN", "CREW", "SUPER", "ESTIMATOR"] }
     ]
@@ -1094,7 +1094,7 @@ const CONNECTIONS_PUZZLES = [
     title: "Pilot Focus",
     groups: [
       { name: "Pilot BUs", color: "a", items: ["WEATHERSHIELD", "FSO", "ROOF-TECH", "PILOT"] },
-      { name: "Pilot Go-Lives", color: "b", items: ["SEP 1", "SEP 14", "OCT 1", "NOV 1"] },
+      { name: "Wave 1-2 Go-Live Dates", color: "b", items: ["SEP 14", "SEP 21", "NOV 9", "DEC 28"] },
       { name: "Field Roles", color: "c", items: ["FOREMAN", "CREW LEAD", "SUPER", "PM"] },
       { name: "Time Capture Terms", color: "d", items: ["CLOCK IN", "JOB CODE", "APPROVE", "SUBMIT"] }
     ]
@@ -1558,8 +1558,8 @@ const TRIVIA_PUZZLES = [
         answer: 1
       },
       {
-        q: "When does Pilot NetSuite go live?",
-        opts: ["July 1, 2026", "September 1, 2026", "October 1, 2026", "January 1, 2027"],
+        q: "When does Wave 1 NetSuite go live at FSO (per the Aug 20, 2026 updated schedule)?",
+        opts: ["July 1, 2026", "September 14, 2026", "October 1, 2026", "January 1, 2027"],
         answer: 1
       }
     ]
@@ -1578,13 +1578,13 @@ const TRIVIA_PUZZLES = [
         answer: 1
       },
       {
-        q: "Which SI is implementing Oracle HCM?",
-        opts: ["RSM", "Deloitte", "IBM", "Accenture"],
-        answer: 2
+        q: "What does OTL stand for in Oracle HCM?",
+        opts: ["Off-The-Line", "Oracle Time and Labor", "Overtime Log", "Office Time Ledger"],
+        answer: 1
       },
       {
-        q: "Which SI is implementing NetSuite?",
-        opts: ["IBM", "RSM", "Appficiency", "PwC"],
+        q: "OTL is used by which staff?",
+        opts: ["Field crews on the jobsite", "Office and hourly non-field staff for time entry", "Only executives", "Only payroll admins"],
         answer: 1
       },
       {
@@ -1603,9 +1603,9 @@ const TRIVIA_PUZZLES = [
         answer: 1
       },
       {
-        q: "When is Oracle HCM go-live for Wave 1 (FSO, WeatherShield) and Wave 2 (Roof-Tech)?",
-        opts: ["Sept 1, 2026", "Sept 21, 2026", "October 1, 2026", "November 1, 2026"],
-        answer: 2
+        q: "Per the Aug 20, 2026 updated schedule, when does Oracle HCM go live for FSO and WeatherShield?",
+        opts: ["Sept 1, 2026", "Sept 21, 2026 (moved up from Oct 1)", "October 1, 2026", "November 9, 2026"],
+        answer: 1
       },
       {
         q: "What does OCM stand for in the OOR CLN Glossary?",
@@ -1643,8 +1643,8 @@ const TRIVIA_PUZZLES = [
         answer: 1
       },
       {
-        q: "Wave 3 Miter go-live is:",
-        opts: ["November 2026", "December 21, 2026", "January 4, 2027", "March 2027"],
+        q: "Wave 3 go-live date (per Aug 20, 2026 updated schedule) is:",
+        opts: ["November 2026", "December 28, 2026", "January 4, 2027", "March 2027"],
         answer: 1
       },
       {
@@ -2198,9 +2198,14 @@ const TRIVIA_PUZZLES = [
     title: "Wave 3 & Beyond",
     questions: [
       {
-        q: "When does Wave 3 go live?",
-        opts: ["January ~1, 2027", "March 2027", "July 2027", "October 2026"],
+        q: "When does Wave 3 go live (per Aug 20 updated schedule)?",
+        opts: ["December 28, 2026", "January 4, 2027", "March 2027", "July 2027"],
         answer: 0
+      },
+      {
+        q: "Which BUs are Wave 3?",
+        opts: ["Only FSO", "Crowther, Springer-Peterson, Hamilton (plus Roof-Tech's HCM+Miter)", "All 16 BUs", "BDI, Davco, Bone Dry"],
+        answer: 1
       },
       {
         q: "When does Wave 4 go live?",
@@ -2210,11 +2215,6 @@ const TRIVIA_PUZZLES = [
       {
         q: "When does Wave 5 go live?",
         opts: ["April 2027", "July ~1, 2027", "October 2027", "January 2028"],
-        answer: 1
-      },
-      {
-        q: "Starting with Wave 3, Finance and HR go live:",
-        opts: ["Staggered 30 days apart", "Simultaneously per BU", "Only Finance goes live", "Only HR goes live"],
         answer: 1
       },
       {
@@ -2378,9 +2378,9 @@ const TRIVIA_PUZZLES = [
     title: "Deployment Play-by-Play",
     questions: [
       {
-        q: "In Wave 1, Finance (NetSuite) goes live for FSO and WeatherShield in:",
-        opts: ["Early September 2026", "Late September 2026", "October 2026", "November 2026"],
-        answer: 0
+        q: "Per the Aug 20 updated schedule, NetSuite goes live for FSO on:",
+        opts: ["Early September 2026", "September 14, 2026", "October 2026", "November 2026"],
+        answer: 1
       },
       {
         q: "In Wave 1, Miter goes live in:",
@@ -2388,8 +2388,8 @@ const TRIVIA_PUZZLES = [
         answer: 1
       },
       {
-        q: "Roof-Tech's Finance go-live is:",
-        opts: ["September 1, 2026", "October 1, 2026", "Early November 2026", "January 2027"],
+        q: "Per the Aug 20 update, WeatherShield & Roof-Tech's NetSuite go-live is:",
+        opts: ["October 1, 2026", "November 1, 2026", "November 9, 2026", "December 28, 2026"],
         answer: 2
       },
       {
@@ -3065,32 +3065,122 @@ const TRIVIA_PUZZLES = [
     ]
   },
   {
-    title: "Wave-by-Wave Dates (CLN Toolkit)",
+    title: "Wave-by-Wave Dates (Aug 20 Update)",
     questions: [
       {
-        q: "Wave 1 (FSO + WeatherShield) NetSuite go-live is:",
-        opts: ["Sept 1, 2026", "Sept 21, 2026", "Oct 1, 2026", "Nov 1, 2026"],
-        answer: 0
-      },
-      {
-        q: "Wave 2 (Roof-Tech) Miter go-live is:",
-        opts: ["Sept 21, 2026", "October 26, 2026", "November 1, 2026", "January 4, 2027"],
+        q: "NetSuite Wave 1 go-live at FSO (open for transactions):",
+        opts: ["September 1, 2026", "September 14, 2026", "September 21, 2026", "October 1, 2026"],
         answer: 1
       },
       {
-        q: "Wave 3 Miter go-live is:",
-        opts: ["November 2026", "December 21, 2026", "January 4, 2027", "March 2027"],
+        q: "Oracle HCM Wave 1 go-live (FSO + WeatherShield) — MOVED UP FROM Oct 1 to:",
+        opts: ["September 14, 2026", "September 21, 2026", "November 9, 2026", "December 28, 2026"],
         answer: 1
       },
       {
-        q: "Wave 4 Finance and HR both go live on:",
-        opts: ["March 22, 2027", "April 1, 2027", "May 15, 2027", "July 1, 2027"],
+        q: "NetSuite for WeatherShield + Roof-Tech goes live on:",
+        opts: ["November 1, 2026", "November 9, 2026", "December 28, 2026", "January 4, 2027"],
         answer: 1
+      },
+      {
+        q: "Wave 3 (Roof-Tech HCM+Miter and Crowther/Springer-Peterson/Hamilton) go-live is:",
+        opts: ["November 2026", "December 21, 2026", "December 28, 2026", "January 4, 2027"],
+        answer: 2
       },
       {
         q: "Wave 5 Finance and HR both go live on:",
         opts: ["April 1, 2027", "June 21, 2027", "July 1, 2027", "August 15, 2027"],
         answer: 2
+      }
+    ]
+  },
+  {
+    title: "Aug 20 Schedule Update — What Changed",
+    questions: [
+      {
+        q: "Why did the project team update the Aug 20 deployment schedule?",
+        opts: ["Cost overruns", "Give teams more time to test, learn, and prepare before expanding across RCA", "Vendor delay", "It was cancelled"],
+        answer: 1
+      },
+      {
+        q: "Which BU became the FIRST to go live on NetSuite (Sept 14 target)?",
+        opts: ["WeatherShield alone", "FSO alone", "Roof-Tech alone", "Crowther alone"],
+        answer: 1
+      },
+      {
+        q: "Oracle HCM for FSO + WeatherShield MOVED UP from October 1 to:",
+        opts: ["September 14", "September 21", "November 9", "December 28"],
+        answer: 1
+      },
+      {
+        q: "Was the Aug 20 update a reset of Operation OneRoof?",
+        opts: ["Yes, everything restarted", "No — most of the broader roadmap remains unchanged", "Only Wave 5 changed", "Only WeatherShield paused"],
+        answer: 1
+      },
+      {
+        q: "Roof-Tech's Oracle HCM and Miter now go live on:",
+        opts: ["October 1, 2026", "October 26, 2026", "November 1, 2026", "December 28, 2026 (new date)"],
+        answer: 3
+      }
+    ]
+  },
+  {
+    title: "NetSuite Go-Live Milestones (FSO)",
+    questions: [
+      {
+        q: "When did the legacy system freeze for new AR/AP transactions?",
+        opts: ["August 15, 2026", "August 28, 2026", "September 1, 2026", "September 14, 2026"],
+        answer: 1
+      },
+      {
+        q: "The Aug 28 legacy freeze on AR/AP is:",
+        opts: ["Temporary — lifted after go-live", "Permanent", "Optional per BU", "Only for FSO"],
+        answer: 1
+      },
+      {
+        q: "When was NetSuite 'open for transactions' for FSO users?",
+        opts: ["September 1", "September 10", "September 14", "October 1"],
+        answer: 2
+      },
+      {
+        q: "How long was onsite hypercare support at FSO for NetSuite?",
+        opts: ["1 day", "September 14-16 (3 days on-site)", "1 month", "Only remote"],
+        answer: 1
+      },
+      {
+        q: "Remote office hours support for FSO NetSuite ran through:",
+        opts: ["September 20", "September 30", "October 2", "October 31"],
+        answer: 2
+      }
+    ]
+  },
+  {
+    title: "Manager Toolkit Terms",
+    questions: [
+      {
+        q: "Per the Manager Toolkit, FUT stands for:",
+        opts: ["Functional Unit Testing", "Field User Testing", "Final User Test", "Full Uptime Trial"],
+        answer: 1
+      },
+      {
+        q: "'Master Data Freeze' means:",
+        opts: ["Nobody logs in", "A cutoff date after which certain data can't be changed so it migrates cleanly", "Systems go offline", "HR takes a break"],
+        answer: 1
+      },
+      {
+        q: "The formal switch-over from old systems to new ones is called:",
+        opts: ["Migration", "Cutover", "Hypercare", "Provisioning"],
+        answer: 1
+      },
+      {
+        q: "Per the Manager Toolkit's 6-stage journey, what comes right BEFORE Testing?",
+        opts: ["Readiness Assessment", "Harmonization", "Configuration", "Cutover"],
+        answer: 2
+      },
+      {
+        q: "The Manager Toolkit reinforces that a manager can say:",
+        opts: ["'I have every answer'", "'I don't know yet — let me find out'", "'Ask someone else'", "'It's not my job'"],
+        answer: 1
       }
     ]
   },
